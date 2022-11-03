@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 5</title>
+    <defs>
+        <polygon id="path-1" points="0 0 14 0 14 26 0 26"></polygon>
+    </defs>
+    <g id="ui-design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Sign-up" transform="translate(-124.000000, -716.000000)">
+            <g id="Group-10" transform="translate(36.000000, 716.000000)">
+                <g id="Group-5" transform="translate(88.000000, 0.000000)">
+                    <rect id="Rectangle" stroke="#DDD8EE" x="0.5" y="0.5" width="39" height="39" rx="8"></rect>
+                    <g id="facebook-seeklogo.com" transform="translate(13.000000, 7.000000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Clip-2"></g>
+                        <path d="M9.08712173,26 L9.08712173,14.1400005 L13.214792,14.1400005 L13.8327119,9.51804179 L9.08712173,9.51804179 L9.08712173,6.56704355 C9.08712173,5.22890831 9.4724453,4.31688712 11.4622034,4.31688712 L14,4.31575325 L14,0.181927807 C13.5609091,0.125806787 12.0545609,0 10.3020909,0 C6.64323729,0 4.13830508,2.1538613 4.13830508,6.10952461 L4.13830508,9.51815621 L0,9.51815621 L0,14.1401045 L4.13817565,14.1401045 L4.13817565,26 L9.08712173,26" id="Fill-1" fill="#395287" mask="url(#mask-2)"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
