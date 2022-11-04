@@ -2,10 +2,21 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icons from 'react-native-vector-icons/Feather'
-import { useToast } from "react-native-toast-notifications";
+import Toast from 'react-native-toast-message';
+const toastConfig = {
 
+    tomatoToast: ({ text1, props }) => (
+        <View style={{ flexDirection: 'row', height: 90, width: '90%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 }}>
+            <Icon name="error-outline"
+                color="white" size={30} />
+            <Text style={{ fontSize: 16, fontWeight: '400', color: 'white' }}>{text1}</Text>
+
+        </View>
+    )
+
+}
 export default class SignUp extends React.Component {
-    
+
     constructor(props) {
         super();
         this.state =
@@ -17,44 +28,137 @@ export default class SignUp extends React.Component {
             lastName: "",
             email: "",
             password: "",
+            errorshow: true
         }
 
     }
 
     createAccountValidation = () => {
-        // const toast = useToast();
 
-        // toast.show("Task finished successfully", {
-        //     type: "normal",
-        //     placement: "top",
-        //     duration: 4000,
-        //     offset: 30,
-        //     animationType: "slide-in",
-        //   });
-          
         const { email, password } = this.state
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         let regpsw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
-        if (this.state.firstName == "") {
-            alert("enter firstName")
+        if (this.state.firstName == '') {
+            Toast.show({
+                type: 'tomatoToast',
+                position: 'top',
+                text1: 'Please Enter firstName',
+                visibilityTime: 3000,
+                autoHide: true,
+                onHide: () => {
+                    this.setState({
+                        errorshow: true
+                    })
+
+                },
+                onShow: () => {
+                    this.setState({
+                        errorshow: false
+                    })
+                }
+            })
         }
-        else if (this.state.lastName == "") {
-            alert("enter lastName")
+        else if (this.state.lastName == '') {
+            Toast.show({
+                type: 'tomatoToast',
+                position: 'top',
+                text1: 'Please Enter lastName',
+                visibilityTime: 3000,
+                autoHide: true,
+                onHide: () => {
+                    this.setState({
+                        errorshow: true
+                    })
+
+                },
+                onShow: () => {
+                    this.setState({
+                        errorshow: false
+                    })
+                }
+            })
         }
-        else if (this.state.email == "") {
-            alert("enter email")
+        else if (this.state.email == '') {
+            Toast.show({
+                type: 'tomatoToast',
+                position: 'top',
+                text1: 'Please Enter email',
+                visibilityTime: 3000,
+                autoHide: true,
+                onHide: () => {
+                    this.setState({
+                        errorshow: true
+                    })
+
+                },
+                onShow: () => {
+                    this.setState({
+                        errorshow: false
+                    })
+                }
+            })
         }
         else if (reg.test(email) == false) {
-            alert("Please enter correct email id")
+            Toast.show({
+                type: 'tomatoToast',
+                position: 'top',
+                text1: 'Please enter correct email id',
+                visibilityTime: 3000,
+                autoHide: true,
+                onHide: () => {
+                    this.setState({
+                        errorshow: true
+                    })
+
+                },
+                onShow: () => {
+                    this.setState({
+                        errorshow: false
+                    })
+                }
+            })
         }
         else if (this.state.password == "") {
-            alert("enter password")
+            Toast.show({
+                type: 'tomatoToast',
+                position: 'top',
+                text1: 'Please Enter password',
+                visibilityTime: 3000,
+                autoHide: true,
+                onHide: () => {
+                    this.setState({
+                        errorshow: true
+                    })
+
+                },
+                onShow: () => {
+                    this.setState({
+                        errorshow: false
+                    })
+                }
+            })
         }
         else if (regpsw.test(password) == false) {
-            alert("Minimum eight characters, at least one uppercase letter, one lowercase letter and one number")
-        }
+            Toast.show({
+                type: 'tomatoToast',
+                position: 'top',
+                text1: 'Minimum eight characters, at least one uppercase letter, one lowercase letter and one number',
+                visibilityTime: 3000,
+                autoHide: true,
+                onHide: () => {
+                    this.setState({
+                        errorshow: true
+                    })
 
+                },
+                onShow: () => {
+                    this.setState({
+                        errorshow: false
+                    })
+                }
+            })
+        }
     }
 
 
@@ -62,6 +166,7 @@ export default class SignUp extends React.Component {
 
         return (
             <ScrollView>
+
                 <View style={styles.stlingView}>
                     <Text style={styles.texthaveAcc}>Have account?<Text style={{ textDecorationLine: "underline", }}> Log in</Text></Text>
                     <Text style={{ fontSize: 20, fontWeight: "bold", paddingBottom: 8 }}>Sign up</Text>
@@ -147,13 +252,14 @@ export default class SignUp extends React.Component {
                         source={require('../Assets/icon_tweet.png')}
                     ></Image>
                 </View>
+                <Toast config={toastConfig} />
             </ScrollView>
         )
     }
 }
 const styles = StyleSheet.create({
-    stlingView: {paddingLeft: 10},
-    texthaveAcc: { paddingLeft: 250, margin: 8, marginBottom: 20 },
+    stlingView: { paddingLeft: 10 },
+    texthaveAcc: { paddingLeft: 230, margin: 8, marginBottom: 20 },
     input: {
         height: 40,
         margin: 10,
@@ -163,7 +269,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: "#f6f5fa"
     },
-    textinput: {paddingLeft: 10,paddingTop: 5},
+    textinput: { paddingLeft: 10, paddingTop: 5 },
     button: {
         height: 50,
         margin: 10,
@@ -173,8 +279,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    signuptext: { color: "white",},
-    checkBox: {flexDirection: 'row', paddingBottom: 4},
+    signuptext: { color: "white", },
+    checkBox: { flexDirection: 'row', paddingBottom: 4 },
     Createpsw: {
         flexDirection: "row",
         alignItems: "center",
@@ -185,7 +291,8 @@ const styles = StyleSheet.create({
         borderColor: "#e4e1ed",
         margin: 10,
     },
-    imgView: { flex: 1, flexDirection: 'row',  justifyContent: "space-around", paddingTop: 3 },
-    imgstyle: { height: 30, width: 30
+    imgView: { flex: 1, flexDirection: 'row', justifyContent: "space-around", paddingTop: 3 },
+    imgstyle: {
+        height: 30, width: 30
     }
 })
