@@ -97,7 +97,7 @@ export default class LoginPg extends React.Component {
                 }
             })
         }
-        else if (regpsw.test(password) == false) {
+        /*else if (regpsw.test(password) == false) {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
@@ -116,6 +116,10 @@ export default class LoginPg extends React.Component {
                     })
                 }
             })
+        }*/
+        else{
+            this.props.navigation.navigate('ForgotScreen1',)
+
         }
     }
     render() {

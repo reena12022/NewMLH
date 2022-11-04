@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ."
@@ -23,7 +24,13 @@
     "react-native-screens": "^3.18.2",
   
     "react-native-toast-message": "^2.1.5",
-    "react-native-vector-icons": "^9.2.0"
+    "react-native-vector-icons": "^9.2.0",
+  
+   
+    "react-native-app-intro-slider": "^4.0.4",
+    "react-native-image-slider-box": "^2.0.7",
+    "react-native-onboarding-swiper": "^1.2.0"
+  
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
