@@ -1,7 +1,7 @@
 
 import React from "react";
 
-import { SafeAreaView, ScrollView, TouchableOpacity, Text, View, Image, StyleSheet, FlatList } from 'react-native'
+import { SafeAreaView, ScrollView, TouchableOpacity, Text, View, Image, StyleSheet, FlatList,Platform } from 'react-native'
 
 import AppIntroSlider from 'react-native-app-intro-slider';
 
@@ -10,15 +10,19 @@ class OnBoardingScreen extends React.Component {
     constructor() {
         super();
         this.state = {
-            skip: true,
-            screen: 0,
+
+             myid:0,
+            startid: 1,
             showSlider: true,
             slides: [{
+
                 key: 1,
                 title: 'Continuous Medical Education:',
                 text: 'strengthen your practice online',
                 subText: 'Access medical courses online , find webinars of train on-site. Learn from global or local healthcare experts',
                 image: require('../Assets/Splash.jpg'),
+                sk: "Skip",
+                pk: " ",
 
             },
             {
@@ -27,6 +31,8 @@ class OnBoardingScreen extends React.Component {
                 text: 'strengthen your practice online',
                 subText: 'Access medical courses online , find webinars of train on-site. Learn from global or local healthcare experts',
                 image: require('../Assets/Group1.png'),
+                sk: "Skip",
+                pk: "Previous"
             },
             {
                 key: 3,
@@ -34,6 +40,8 @@ class OnBoardingScreen extends React.Component {
                 text: 'strengthen your practice online',
                 subText: 'Access medical courses online , find webinars of train on-site. Learn from global or local healthcare experts',
                 image: require('../Assets/Group2.png'),
+                sk: null,
+                pk: "Previous"
 
             }],
         }
@@ -41,16 +49,28 @@ class OnBoardingScreen extends React.Component {
 
 
     renderItemList = ({ item }) => {
+        this.state.myid = item.key
         return (
+
             <View style={styles.slide}>
 
-                <View style={{ }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',marginRight:10 }}>
+                    <TouchableOpacity>
+                        <Text style={{ fontSize: 20, }}> {item.pk}  </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity >
+                        <Text style={{ fontSize: 20, }}> {item.sk}</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={{}}>
                     <Image style={styles.imageStyle} source={item.image} />
-                    <View style={{ margin: 20}}>
+                    <View style={{ margin: 20 }}>
                         <Text style={styles.title}>{item.title}</Text>
                         <Text style={styles.text}>{item.text}</Text>
-                        <View style={{width:'50%'}}> 
-                        <Text style={styles.subText}>{item.subText}</Text>
+                        <View style={{ width: '50%' }}>
+                            <Text style={styles.subText}>{item.subText}</Text>
                         </View>
                     </View>
 
@@ -72,6 +92,52 @@ class OnBoardingScreen extends React.Component {
     //     itemVisiblePercentThreshold: 50
     // };
 
+    getBackgroundColor = () => {
+        console.log(this.state.myid)
+        let color;
+    
+        if (this.state.myid == this.state.startid) {
+            color = '#c71585';
+
+
+        } else if (this.state.myid < this.state.startid) {
+        
+            color = 'pink';
+        } else {
+          
+            color = '#e6e6fa';
+        }
+        return color;
+    }
+
+
+
+
+    renderList1 = ({ item }) => {
+        this.state.myid = item.id;
+        this.state.myid = item.id;
+        console.log("this.state.data>>", this.state.myid)
+
+        return (
+
+            <View style={styles.row}>
+                <View style={{
+                    marginTop:20,
+                    width: 14,
+                    height: 14,
+                    //  backgroundColor: '#c71585',
+                    borderRadius: 50,
+                    marginHorizontal: 5,
+                    borderWidth: 1,
+                    borderColor: '#c71585', backgroundColor: this.getBackgroundColor()
+                }} />
+            </View>
+
+        )
+    }
+
+
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
@@ -79,14 +145,7 @@ class OnBoardingScreen extends React.Component {
 
                 <ScrollView>
 
-                    {
 
-                        <View>
-                            <TouchableOpacity>
-                                <Text style={{ textAlign: 'right', fontSize: 20, }}> Skip</Text>
-                            </TouchableOpacity>
-                        </View>
-                    }
 
                     {
                         this.state.showSlider ?
@@ -99,7 +158,11 @@ class OnBoardingScreen extends React.Component {
                                 pagingEnabled={true}
                                 // onViewableItemsChanged={this.onViewableItemsChanged}
                                 // viewabilityConfig={this.viewabilityConfig}
+                                keyExtractor={item => item.key}
+                               
                             />
+
+
 
 
                             // <AppIntroSlider
@@ -117,12 +180,17 @@ class OnBoardingScreen extends React.Component {
                             : <View> <Text>I am a Home Component</Text></View>
                     }
 
-                    <View style={styles.row}>
-                        <View style={styles.dot } />
-                        <View style={styles.dot} />
-                        <View style={styles.dot} />
 
-                    </View>
+                    <FlatList
+                        horizontal={true}
+                        //  renderItem={({item,index})=>(
+                        //     console.log("item>>",item),
+                        //     <Text>{item.name}</Text>
+                        //  )}
+                        data={this.state.slides}
+                        renderItem={this.renderList1}
+                        keyExtractor={item => item.key}
+                    />
 
                     <View style={{ marginTop: 80, }}>
                         <View style={styles.btn1}>
@@ -155,14 +223,14 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        //backgroundColor: '#fff',
-        backgroundColor: 'lightblue'
+        backgroundColor: '#fff',
+     //   backgroundColor: 'lightblue'
     },
     imageStyle: {
         width: '90%',
         height: '60%',
         borderRadius: 10,
-         marginLeft: 10,
+        marginLeft: 10,
         alignItems: 'center',
         justifyContent: 'center'
 
@@ -176,10 +244,10 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignSelf: 'flex-start',
-        marginLeft: 20,
+        marginLeft: 10,
 
-        bottom: 8,
-        justifyContent: 'center',
+        //bottom: 8,
+       // justifyContent: 'center',
 
     },
     dot: {
@@ -195,7 +263,7 @@ const styles = StyleSheet.create({
 
     title: { fontSize: 20, fontWeight: '800' },
     text: { fontSize: 20, fontWeight: '800' },
-  
+
     subText: { fontSize: 15 },
 
     imageText: {
