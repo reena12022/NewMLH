@@ -2,19 +2,40 @@ import React, {Component} from 'react';
 import { KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { TextInput,View,ScrollView,Image, StyleSheet,Alert, FlatList, Text } from 'react-native';
 import Buttoncom from './buttoncom';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-Icon.loadFont().then();
-import MyIcon from 'react-native-vector-icons/AntDesign';
+import MyIcon from 'react-native-vector-icons/FontAwesome';
 
+import CountDown from 'react-native-countdown-component';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+MyIcon.loadFont().then();
 
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 const toastConfig ={
-    
+    success: (props) => (
+        <BaseToast
+          {...props}
+          style={{ borderLeftColor: 'pink' }}
+          contentContainerStyle={{ paddingHorizontal: 15 }}
+          text1Style={{
+            fontSize: 15,
+            fontWeight: '400'
+          }}
+        />
+      ),
       /*
         Overwrite 'error' type,
         by modifying the existing `ErrorToast` component
       */
-      
+      error: (props) => (
+        <ErrorToast
+          {...props}
+          text1Style={{
+            fontSize: 17
+          }}
+          text2Style={{
+            fontSize: 15
+          }}
+        />
+      ),
       /*
         Or create a completely new type - `tomatoToast`,
         building the layout from scratch.
@@ -23,18 +44,16 @@ const toastConfig ={
         They will be passed when calling the `show` method (see below)
       */
       tomatoToast: ({ text1, props }) => (
-        <View style={{ flexDirection:'row' , height: 80, width: '90%', backgroundColor: '#dc143c',alignItems:'center',justifyContent:'center',borderRadius:10}}>
+        <View style={{ flexDirection:'row' , height: 60, width: '90%', backgroundColor: '#dc143c',alignItems:'center',justifyContent:'center',borderRadius:10}}>
               <Icon name="error-outline"
 color="white" size={30}/> 
-          <Text style={{fontSize:16,fontWeight:'400',color:'white'}}>{text1}</Text>
+          <Text style={{marginLeft:20,fontSize:16,fontWeight:'400',color:'white'}}>{text1}</Text>
           
         </View>
       )
 
 }
- 
-
-export default class ForgotScreen extends Component {
+export default class Updatepsw extends Component {
     
     state = {
         name: "",
@@ -45,9 +64,6 @@ export default class ForgotScreen extends Component {
         LastName: '',
         confmpsw: '',
         submitDisabled: true,
-        errorshow: true,
-        pattern:true,
-
         data: null,
         value0: false,
         value1: false,
@@ -59,71 +75,26 @@ export default class ForgotScreen extends Component {
    
     Senddata()
     {
-        const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-        if(this.state.email == '')
+        if(!this.state.email == '')
         {
             Toast.show({
            type:'tomatoToast',
                 position:'top',
                 text1:'Please Enter Email',
-                visibilityTime:3000,
-                autoHide:true,
-                onHide: () =>{
-                    this.setState({
-                        errorshow:true
-                    })
-
-                },
-                onShow : () =>{
-                    this.setState({
-                        errorshow:false
-                    })
-
-                }
-            
-                
-              
-            })
-
-
-        }
-       else if(reg.test(this.state.email) === false)
-        {
-            Toast.show({
-           type:'tomatoToast',
-                position:'top',
-                text1:'Email is not correct',
-                visibilityTime:3000,
-                autoHide:true,
-                onHide: () =>{
-                    this.setState({
-                        errorshow:true
-                    })
-
-                },
-                onShow : () =>{
-                    this.setState({
-                        errorshow:true
-                    })
-
-                }
-            
-                
+                visibilityTime:2000,
+                autoHide:true
               
             })
 
 
         }
         else{
-            this.props.navigation.navigate('ForgotScreen2',)
+            this.props.navigation.navigate('Setpassword',)
 
         }
     }
   
     render() {
-        const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
         return (
 
             <ScrollView
@@ -133,14 +104,21 @@ export default class ForgotScreen extends Component {
                
 
                <View style={style.container1}>
-               
-               <Text style={style.mytext}>Forgot Password</Text>
+               <Toast config={toastConfig} />
+               <Text style={style.mytext}>PASSWORD</Text>
+               <Text style={style.mytext4}>UPDATED</Text>
+             
+
+               <View  style={style.img}>
+               <Icon name="check"
+color="white" size={50}/>
+
+</View>
                <View style={style.container2}>
-                    <Text style={style.mytext1}>Enter registered email below to recrive</Text> 
-                    <Text style={style.mytext2}>password reset instruction</Text>
+                    <Text style={style.mytext1}>Your Password has been succuesfully</Text> 
+                    <Text style={style.mytext2}>updated</Text>
 
                 </View>
-               <Image source={require('../Assets/forgot1.png')} style={style.img}/>
                </View>
              
 
@@ -148,43 +126,9 @@ export default class ForgotScreen extends Component {
                
 
                 <View style={style.container4}>
-<Text style={style.mytext3}>Email</Text>
+               
 
 
-                            <View style={style.input1}>
-                                
-
-                                <TextInput     style={{fontSize:18,color:'black'}}
-                                    placeholder='Password'
-                                    placeholderTextColor="#d8bfd8"
-                                    value={this.state.email}
-                                    onChangeText={(text) => this.setState({ email: text })}
-                                    secureTextEntry={true}
-                                />
-                                  
-                                {
-                                    reg.test(this.state.email) == true ?
-                                        <TouchableOpacity style={{margin:10}} onPress={() => this.onClick()}>
-                                             <MyIcon name="checksquareo"
-color="gray" size={20}/>
-
-
-                                        </TouchableOpacity>
-                                        : null}
-                                          {
-                                    !this.state.errorshow ?
-                                        <TouchableOpacity style={{margin:10}} onPress={() => this.onClick()}>
-                                            <Icon name="error-outline"
-color="red" size={20}/> 
-
-
-                                        </TouchableOpacity>
-                                        : null}
-
-                            </View>
-                           
-
-                 
 
 
                 
@@ -199,27 +143,15 @@ color="red" size={20}/>
                     onClick={() => this.Senddata()}
 
                         // image1={require('')}
-                        btnText={"Send"}
+                        btnText={"Login"}
                         TextStyle={style.textbutton}
 
                     />
            
               
-                <View style={style.container3}>
-<Text style={style.forgot_button3}>Go back to  
-</Text>
-<TouchableOpacity  style={style.forgot_button2}
-
-   onPress={()=>this.props.navigation.navigate('Logincom')}
-   >
-
-<Text style={style.forgot_button4}> Login</Text>
-
-</TouchableOpacity>
-</View>
+              
              
-</View>      
-<Toast config={toastConfig} /> 
+</View>       
             </ScrollView>
 
 
@@ -243,10 +175,13 @@ const style = StyleSheet.create({
         marginLeft:20,width: '90%',marginTop:20
     },
     container4:{
-        flex:1,alignItems: 'center', width: "100%",
+        flex:1,alignItems: 'center', width: "100%",justifyContent:'flex-end',marginTop:Platform.OS === "ios" ? 300 :250
     },
     mytext:{
-        fontSize: 20,  color: '#663399',marginTop:40
+        fontSize: 25,  color: '#663399',marginTop:40
+    },
+    mytext4:{
+        fontSize: 25,  color: '#663399',marginTop:5
     },
     mytext1:{
         fontSize: 16, fontWeight: '400', color: 'gray',
@@ -255,7 +190,11 @@ const style = StyleSheet.create({
         fontSize: 16, fontWeight: '400', color: 'gray',marginBottom:15
     },
     img:{
-        height:260,width:260,alignItems:'center'
+        height:100,width:100,alignItems:'center',borderRadius:50,backgroundColor:'#dc143c',justifyContent:'center',marginTop:30
+    },
+    img2:{
+        height:50,width:50,  borderColor: "red",
+        borderWidth: 5,
     },
     container1:
     {
@@ -274,13 +213,14 @@ const style = StyleSheet.create({
       },
     input1: {
         flexDirection: 'row',
-        height: 50,
+        height: 60,
         justifyContent: 'space-between',
-        padding:2,
+        margin: 10,
+        padding: 10,
         width: '90%',
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius:10
+        borderBottomWidth: 1,
+        borderBottomColor: 'white'
+
     },
     img3:
     {
@@ -292,7 +232,7 @@ const style = StyleSheet.create({
     },
     mybutton: {
 
-        marginTop: 20,
+        marginTop: 10,
         backgroundColor: '#dc143c',
         height: 50,
         width: '90%',
@@ -365,5 +305,17 @@ const style = StyleSheet.create({
     textbutton: {
         fontSize: 16,
         color: 'white'
-    }
+    },
+    input2: {
+      height: 35,
+      margin: 10,
+      color: 'gray',
+      padding: 10,
+      width: '13%',
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius:5
+
+
+  },
 });
