@@ -44,12 +44,14 @@ class OnBoardingScreen extends React.Component {
         return (
             <View style={styles.slide}>
 
-                <View style={{ alignItems: 'center', }}>
+                <View style={{ }}>
                     <Image style={styles.imageStyle} source={item.image} />
-                    <View style={{ margin: 20 }}>
+                    <View style={{ margin: 20}}>
                         <Text style={styles.title}>{item.title}</Text>
                         <Text style={styles.text}>{item.text}</Text>
+                        <View style={{width:'50%'}}> 
                         <Text style={styles.subText}>{item.subText}</Text>
+                        </View>
                     </View>
 
                 </View>
@@ -61,14 +63,15 @@ class OnBoardingScreen extends React.Component {
         )
     }
 
-    onViewableItemsChanged = ({ viewableItems, changed }) => {
-        this.setState({ screen: viewableItems[0].key })
-    };
+    // onViewableItemsChanged = ({ viewableItems, changed }) => {
+    //     this.setState({ screen: viewableItems[0].key })
+    // };
 
-    viewabilityConfig = {
+    // viewabilityConfig = {
 
-        itemVisiblePercentThreshold: 50
-    };
+    //     itemVisiblePercentThreshold: 50
+    // };
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
@@ -94,8 +97,8 @@ class OnBoardingScreen extends React.Component {
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
                                 pagingEnabled={true}
-                                onViewableItemsChanged={this.onViewableItemsChanged}
-                                viewabilityConfig={this.viewabilityConfig}
+                                // onViewableItemsChanged={this.onViewableItemsChanged}
+                                // viewabilityConfig={this.viewabilityConfig}
                             />
 
 
@@ -115,9 +118,9 @@ class OnBoardingScreen extends React.Component {
                     }
 
                     <View style={styles.row}>
-                        <View style={[styles.dot, backgroundColor.key === 1 ? '#c71585' : '#ffff']} />
-                        <View style={[styles.dot, backgroundColor.key === 2 ? '#c71585' : '#ffff']} />
-                        <View style={[styles.dot, backgroundColor.key === 3 ? '#c71585' : '#ffff']} />
+                        <View style={styles.dot } />
+                        <View style={styles.dot} />
+                        <View style={styles.dot} />
 
                     </View>
 
@@ -159,7 +162,7 @@ const styles = StyleSheet.create({
         width: '90%',
         height: '60%',
         borderRadius: 10,
-        margin: 10,
+         marginLeft: 10,
         alignItems: 'center',
         justifyContent: 'center'
 
@@ -192,7 +195,9 @@ const styles = StyleSheet.create({
 
     title: { fontSize: 20, fontWeight: '800' },
     text: { fontSize: 20, fontWeight: '800' },
+  
     subText: { fontSize: 15 },
+
     imageText: {
         color: 'black',
         fontSize: 5,
