@@ -1,16 +1,17 @@
-
 import React from "react";
 
-import { SafeAreaView, ScrollView, TouchableOpacity, Text, View, Image, StyleSheet, FlatList,Platform } from 'react-native'
+import { SafeAreaView, ScrollView, TouchableOpacity, Text, View, Image, StyleSheet, FlatList, Platform } from 'react-native'
 
 
+import PaginationDot from 'react-native-animated-pagination-dot'
 class OnBoardingScreen extends React.Component {
 
     constructor() {
         super();
         this.state = {
+            currentIndex: 0,
 
-             myid:0,
+            myid: 1,
             startid: 1,
             showSlider: true,
             slides: [{
@@ -46,32 +47,64 @@ class OnBoardingScreen extends React.Component {
         }
     }
 
+    onpress = (event) => {
+
+        // const positionX = event.nativeEvent.contentOffset.x;
+        // const positionY = event.nativeEvent.contentOffset.y;
+
+        //this.state.myid = this.state.myid+1
+
+        console.log("myId>>>>", this.state.myid)
+        this.setState({ myid: this.state.key })
+    }
 
     renderItemList = ({ item }) => {
-        this.state.myid = item.key
+
+
+        // this.state.myid = item.key
+
         return (
 
             <View style={styles.slide}>
 
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',marginRight:10 }}>
-                    <TouchableOpacity>
-                        <Text style={{ fontSize: 20, }}> {item.pk}  </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginRight: Platform.OS === 'android' ? 5 : 20 }}>
+                    <TouchableOpacity >
+                        <Text style={styles.previous}> {item.pk}  </Text>
+
+
                     </TouchableOpacity>
 
-                    <TouchableOpacity >
+                    <TouchableOpacity style={styles.skip}>
                         <Text style={{ fontSize: 20, }}> {item.sk}</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={{}}>
+                <View style={{ width: 350, height: 600 }}>
+
                     <Image style={styles.imageStyle} source={item.image} />
-                    <View style={{ margin: 20 }}>
+
+
+
+                    <View style={{ marginLeft: 30, marginRight: 30 }}>
+
                         <Text style={styles.title}>{item.title}</Text>
                         <Text style={styles.text}>{item.text}</Text>
-                        <View style={{ width: '50%' }}>
+                        <View style={{ width: 300 }}>
                             <Text style={styles.subText}>{item.subText}</Text>
                         </View>
                     </View>
+
+
+                    <View style={{ marginLeft: 20 }}>
+                        <PaginationDot
+                            activeDotColor={"#c71585"}
+                            inactiveDotColor={"red"}
+                            curPage={item.key - 1}
+                            maxPage={3}
+                            sizeRatio={2.0}
+                        />
+                    </View>
+
 
                 </View>
 
@@ -91,55 +124,55 @@ class OnBoardingScreen extends React.Component {
     //     itemVisiblePercentThreshold: 50
     // };
 
-    getBackgroundColor = () => {
-        console.log(this.state.myid)
-        let color;
-    
-        if (this.state.myid == this.state.startid) {
-            color = '#c71585';
+    // getBackgroundColor = () => {
+    //     console.log(this.state.myid)
+    //     let color;
+
+    //     if (this.state.myid == this.state.startid) {
+    //         color = '#c71585';
 
 
-        } else if (this.state.myid < this.state.startid) {
-        
-            color = 'pink';
-        } else {
-          
-            color = '#e6e6fa';
-        }
-        return color;
-    }
+    //     } else if (this.state.myid < this.state.startid) {
+
+    //         color = 'pink';
+    //     } else {
+
+    //         color = '#e6e6fa';
+    //     }
+    //     return color;
+    // }
 
 
 
 
-    renderList1 = ({ item }) => {
-        this.state.myid = item.id;
-        this.state.myid = item.id;
-        console.log("this.state.data>>", this.state.myid)
+    // renderList1 = ({ item }) => {
+    //     this.state.myid = item.key
 
-        return (
+    //     console.log("this.state.data>>", this.state.myid)
 
-            <View style={styles.row}>
-                <View style={{
-                    marginTop:20,
-                    width: 14,
-                    height: 14,
-                    //  backgroundColor: '#c71585',
-                    borderRadius: 50,
-                    marginHorizontal: 5,
-                    borderWidth: 1,
-                    borderColor: '#c71585', backgroundColor: this.getBackgroundColor()
-                }} />
-            </View>
+    //     return (
 
-        )
-    }
+    //         <View style={styles.row}>
+    //             <View style={{
+    //                 marginTop: 20,
+    //                 width: 14,
+    //                 height: 14,
+    //                 //  backgroundColor: '#c71585',
+    //                 borderRadius: 50,
+    //                 marginHorizontal: 5,
+    //                 borderWidth: 1,
+    //                 borderColor: '#c71585', backgroundColor: this.getBackgroundColor()
+    //             }} />
+    //         </View>
+
+    //     )
+    // }
 
 
 
     render() {
         return (
-            <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
 
 
                 <ScrollView>
@@ -155,10 +188,12 @@ class OnBoardingScreen extends React.Component {
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
                                 pagingEnabled={true}
-                                // onViewableItemsChanged={this.onViewableItemsChanged}
-                                // viewabilityConfig={this.viewabilityConfig}
+
                                 keyExtractor={item => item.key}
-                               
+                            // onScroll={ ([{ nativeEvent: { contentOffset: { x: 
+                            //     scrollX } } }], {listener: (event) => this.onpress(event)})}
+                            //     scrollEventThrottle={16}
+
                             />
 
 
@@ -177,10 +212,11 @@ class OnBoardingScreen extends React.Component {
 
                             // /> 
                             : <View> <Text>I am a Home Component</Text></View>
+
                     }
 
 
-                    <FlatList
+                    {/* <FlatList
                         horizontal={true}
                         //  renderItem={({item,index})=>(
                         //     console.log("item>>",item),
@@ -189,12 +225,15 @@ class OnBoardingScreen extends React.Component {
                         data={this.state.slides}
                         renderItem={this.renderList1}
                         keyExtractor={item => item.key}
-                    />
+                    onScroll ={this.onpress()} 
+                    /> */}
 
-                    <View style={{ marginTop: 80, }}>
+
+
+
+                    <View style={{ marginTop: 10, }}>
                         <View style={styles.btn1}>
-                            <TouchableOpacity style={styles.touchbtn1}
-                            onPress={() => this.props.navigation.navigate('Signup')} >
+                            <TouchableOpacity style={styles.touchbtn1} >
 
                                 <Text style={styles.signUpText}>Sign Up</Text>
                             </TouchableOpacity>
@@ -205,14 +244,14 @@ class OnBoardingScreen extends React.Component {
                         <View style={styles.btn2} >
 
 
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} style={styles.touchbtn2}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('RegistrationPage')} style={styles.touchbtn2}>
                                 <Text style={styles.loginText}>Login</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </ScrollView>
 
-            </SafeAreaView>
+            </View>
         )
     }
 }
@@ -224,30 +263,32 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#fff',
-     //   backgroundColor: 'lightblue'
+        //   backgroundColor: 'lightblue'
     },
     imageStyle: {
         width: '90%',
         height: '60%',
         borderRadius: 10,
         marginLeft: 10,
-        alignItems: 'center',
-        justifyContent: 'center'
+
 
     },
     slide: {
-        height: 500,
+        width: 400,
+        height: Platform.OS === 'android' ? 600 : 650,
 
         // backgroundColor: "red",
         // marginBottom: 30
     },
+    skip: { marginTop: Platform.OS === 'ios' ? 40 : 0 },
+    previous: { fontSize: 20, marginTop: Platform.OS === 'ios' ? 40 : 0 },
     row: {
         flexDirection: 'row',
         alignSelf: 'flex-start',
         marginLeft: 10,
 
         //bottom: 8,
-       // justifyContent: 'center',
+        // justifyContent: 'center',
 
     },
     dot: {
@@ -312,121 +353,3 @@ const styles = StyleSheet.create({
     loginText: { fontWeight: 'bold', marginLeft: 5, fontSize: 18, textAlign: 'center' },
 })
 export default OnBoardingScreen;
-
-
-
-// import React from 'react';
-// import {View, Text, Image, StyleSheet, StatusBar} from 'react-native';
-// // import Icon from 'react-native-vector-icons/Ionicons';
-// import AppIntroSlider from 'react-native-app-intro-slider';
-
-// const data = [
-//   {
-//     title: 'Title 1',
-//     text: 'Description.\nSay something cool',
-//     image: require('../Assets/Splash.jpg'),
-//     bg: '#59b2ab',
-//   },
-//   {
-//     title: 'Title 2',
-//     text: 'Other cool stuff',
-//     image: require('../Assets/Splash.jpg'),
-//     bg: '#febe29',
-//   },
-//   {
-//     title: 'Rocket guy',
-//     text: "I'm already out of descriptions\n\nLorem ipsum bla bla bla",
-//     image: require('../Assets/Splash.jpg'),
-//     bg: '#22bcb5',
-//   },
-// ];
-
-// type Item = typeof data[0];
-
-// const styles = StyleSheet.create({
-//   slide: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   image: {
-//     width: 320,
-//     height: 320,
-//     marginVertical: 32,
-//   },
-//   text: {
-//     color: 'rgba(255, 255, 255, 0.8)',
-//     textAlign: 'center',
-//   },
-//   title: {
-//     fontSize: 22,
-//     color: 'white',
-//     textAlign: 'center',
-//   },
-//   buttonCircle: {
-//     top:0,
-//     position:'absolute',
-//     width: 44,
-//     height: 44,
-//     backgroundColor: 'rgba(0, 0, 0, .2)',
-//     borderRadius: 22,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-// });
-
-// export default class OnBoardingScreen extends React.Component {
-//   _renderItem = ({item}: {item: Item}) => {
-//     return (
-//       <View
-//         style={[
-//           styles.slide,
-//           {
-//             backgroundColor: item.bg,
-//           },
-//         ]}>
-//         <Text style={styles.title}>{item.title}</Text>
-//         <Image source={item.image} style={styles.image} />
-//         <Text style={styles.text}>{item.text}</Text>
-//       </View>
-//     );
-//   };
-
-//   _keyExtractor = (item: Item) => item.title;
-
-//   _renderNextButton = () => {
-//     return (
-//       <View style={styles.buttonCircle}>
-//         {/* <Icon
-//           name="md-arrow-round-forward"
-//           color="rgba(255, 255, 255, .9)"
-//           size={24}
-//         /> */}<Text>PORS</Text>
-//       </View>
-//     );
-//   };
-
-//   _renderDoneButton = () => {
-//     return (
-//       <View style={styles.buttonCircle}>
-//         {/* <Icon name="md-checkmark" color="rgba(255, 255, 255, .9)" size={24} /> */}
-//         <Text>ABCD</Text>
-//       </View>
-//     );
-//   };
-
-//   render() {
-//     return (
-//       <View style={{flex: 1}}>
-//         <StatusBar translucent backgroundColor="transparent" />
-//         <AppIntroSlider
-//           keyExtractor={this._keyExtractor}
-//           renderDoneButton={this._renderDoneButton}
-//           renderNextButton={this._renderNextButton}
-//           renderItem={this._renderItem}
-//           data={data}
-//         />
-//       </View>
-//     );
-//   }
-// }

@@ -89,7 +89,7 @@ export default class Updatepsw extends Component {
 
         }
         else{
-            this.props.navigation.navigate('Setpassword',)
+            this.props.navigation.navigate('Login',)
 
         }
     }

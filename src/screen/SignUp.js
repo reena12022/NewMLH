@@ -1,15 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icons from 'react-native-vector-icons/Feather'
 import Toast from 'react-native-toast-message';
+Icon.loadFont().then();
+Icons.loadFont().then()
 const toastConfig = {
 
     tomatoToast: ({ text1, props }) => (
-        <View style={{ flexDirection: 'row', height: 90, width: '90%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 }}>
+        <View style={{ flexDirection: 'row', height: 80, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 ,padding:10}}>
             <Icon name="error-outline"
                 color="white" size={30} />
-            <Text style={{ fontSize: 16, fontWeight: '400', color: 'white' }}>{text1}</Text>
+            <Text style={{ fontSize: 14, fontWeight: '400', color: 'white',flexWrap:'wrap',flex:1 ,paddingStart:5}}>{text1}</Text>
 
         </View>
     )
@@ -30,7 +32,6 @@ export default class SignUp extends React.Component {
             password: "",
             errorshow: true
         }
-
     }
 
     createAccountValidation = () => {
@@ -50,7 +51,6 @@ export default class SignUp extends React.Component {
                     this.setState({
                         errorshow: true
                     })
-
                 },
                 onShow: () => {
                     this.setState({
@@ -70,7 +70,6 @@ export default class SignUp extends React.Component {
                     this.setState({
                         errorshow: true
                     })
-
                 },
                 onShow: () => {
                     this.setState({
@@ -90,7 +89,6 @@ export default class SignUp extends React.Component {
                     this.setState({
                         errorshow: true
                     })
-
                 },
                 onShow: () => {
                     this.setState({
@@ -99,7 +97,8 @@ export default class SignUp extends React.Component {
                 }
             })
         }
-        else if (reg.test(email) == false) {
+        else if (reg.test(email)
+ == false) {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
@@ -110,7 +109,6 @@ export default class SignUp extends React.Component {
                     this.setState({
                         errorshow: true
                     })
-
                 },
                 onShow: () => {
                     this.setState({
@@ -130,7 +128,6 @@ export default class SignUp extends React.Component {
                     this.setState({
                         errorshow: true
                     })
-
                 },
                 onShow: () => {
                     this.setState({
@@ -159,20 +156,25 @@ export default class SignUp extends React.Component {
                 }
             })
         }
+        else{
+            this.props.navigation.navigate('Login',)
+
+        }
     }
 
 
     render() {
 
         return (
+            <SafeAreaView>
             <ScrollView>
 
                 <View style={styles.stlingView}>
-                    <Text style={styles.texthaveAcc}>Have account?<Text style={{ textDecorationLine: "underline", }}> Log in</Text></Text>
-                    <Text style={{ fontSize: 20, fontWeight: "bold", paddingBottom: 8 }}>Sign up</Text>
+                    <Text style={styles.texthaveAcc}>Have account?<Text style={{ textDecorationLine: "underline", fontWeight:'bold'}}> Log in</Text></Text>
+                    <Text style={{ fontSize: 20, fontWeight:'bold', paddingBottom: 8 }}>Sign up</Text>
                     <Text style={{ paddingBottom: 10 }}>Create your MLH account to continue</Text>
                 </View>
-                {/* ----TextInput--- */}
+           
                 <View>
                     <Text style={styles.textinput}>First Name</Text>
                     <TextInput
@@ -205,76 +207,83 @@ export default class SignUp extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                {/* ----checkbox---- */}
-                <View style={styles.stlingView}>
+           
+                <View style={styles.checkBoxstyle}>
                     <TouchableOpacity
                         onPress={() => this.setState({ selected: !this.state.selected })}
                         style={[styles.checkBox]}>
                         <Icon
                             size={20}
                             name={this.state.selected ? 'check-box' : 'check-box-outline-blank'} />
-                        <Text>I have read and agreed with the Terms and Conditions*</Text>
                     </TouchableOpacity>
-
+                    <Text>I have read and agreed with the <Text style={{fontWeight:'bold'}}>Terms and Conditions*</Text></Text>
+                   </View>
+                   <View style={styles.checkBoxstyle}>
                     <TouchableOpacity
                         onPress={() => this.setState({ isselected: !this.state.isselected })}
                         style={[styles.checkBox]}>
                         <Icon
                             size={20}
                             name={this.state.isselected ? 'check-box' : 'check-box-outline-blank'} />
-                        <Text>I agree to receiving news and information from Medical Learning Hub</Text>
                     </TouchableOpacity>
+                    <Text>I agree to receiving news and information from Medical Learning Hub</Text>
                 </View>
-                {/* ----Button---- */}
+             
                 <View>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => this.createAccountValidation()}>
                         <Text style={styles.signuptext}>Sign up</Text>
                     </TouchableOpacity>
-
-                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                </View>
+             
+                <View style={{ marginTop: Platform.OS === "ios" ? 20 : 10 }}>
+                    <View style={{ justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
                         <Text>or sign up with</Text>
                     </View>
-                </View>
-                {/* ----Img--- */}
-                <View style={styles.imgView}>
-                    <Image style={styles.imgstyle}
-                        source={require('../Assets/icon_google.png')}
-                    ></Image>
-                    <Image style={styles.imgstyle}
-                        source={require('../Assets/icon_fb.png')}
-                    ></Image>
-                    <Image style={styles.imgstyle}
-                        source={require('../Assets/icon_indeed.png')}
-                    ></Image>
-                    <Image style={styles.imgstyle}
-                        source={require('../Assets/icon_tweet.png')}
-                    ></Image>
+
+                    
+                    <View style={styles.imgView}>
+                        <Image style={styles.imgstyle}
+                            source={require('../Assets/icon_google.png')}
+                        ></Image>
+                        <Image style={styles.imgstyle}
+                            source={require('../Assets/icon_fb.png')}
+                        ></Image>
+                        <Image style={styles.imgstyle}
+                            source={require('../Assets/icon_indeed.png')}
+                        ></Image>
+                        <Image style={styles.imgstyle}
+                            source={require('../Assets/icon_tweet.png')}
+                        ></Image>
+                    </View>
                 </View>
                 <Toast config={toastConfig} />
             </ScrollView>
+            </SafeAreaView>
         )
     }
 }
 const styles = StyleSheet.create({
     stlingView: { paddingLeft: 10 },
+    checkBoxstyle:{
+ paddingLeft: 10 ,flexDirection:"row"},
     texthaveAcc: { paddingLeft: 230, margin: 8, marginBottom: 20 },
     input: {
-        height: 40,
+        height: 43,
         margin: 10,
         borderColor: "#e4e1ed",
         borderWidth: 2,
         padding: 6,
-        borderRadius: 5,
+        borderRadius: 7,
         backgroundColor: "#f6f5fa"
     },
     textinput: { paddingLeft: 10, paddingTop: 5 },
     button: {
         height: 50,
         margin: 10,
-        padding: 6,
-        borderRadius: 5,
+        marginTop: 20,
+        borderRadius: 7,
         backgroundColor: '#d84b51',
         justifyContent: "center",
         alignItems: "center"
@@ -284,8 +293,8 @@ const styles = StyleSheet.create({
     Createpsw: {
         flexDirection: "row",
         alignItems: "center",
-        height: 40,
-        borderRadius: 5,
+        height: 43,
+        borderRadius: 7,
         backgroundColor: "#f6f5fa",
         borderWidth: 2,
         borderColor: "#e4e1ed",
