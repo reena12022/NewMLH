@@ -3,15 +3,18 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image 
 import Icons from 'react-native-vector-icons/Feather'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Toast from 'react-native-toast-message';
+import { SafeAreaView } from 'react-native-safe-area-context';
+Icon.loadFont().then();
+Icons.loadFont().then()
+
 
 const toastConfig = {
 
     tomatoToast: ({ text1, props }) => (
-        <View style={{ flexDirection: 'row', height: 90, width: '90%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 }}>
+        <View style={{ flexDirection: 'row', height: 80, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 ,padding:10 }}>
             <Icon name="error-outline"
                 color="white" size={30} />
-            <Text style={{ fontSize: 16, fontWeight: '400', color: 'white' }}>{text1}</Text>
-
+            <Text style={{  fontSize: 14, fontWeight: '400', color: 'white',flexWrap:'wrap',flex:1 ,paddingStart:5 }}>{text1}</Text>
         </View>
     )
 
@@ -48,7 +51,6 @@ export default class LoginPg extends React.Component {
                     this.setState({
                         errorshow: true
                     })
-
                 },
                 onShow: () => {
                     this.setState({
@@ -57,7 +59,8 @@ export default class LoginPg extends React.Component {
                 }
             })
         }
-        else if (reg.test(email) == false) {
+        else if (reg.test(email)
+ == false) {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
@@ -68,7 +71,6 @@ export default class LoginPg extends React.Component {
                     this.setState({
                         errorshow: true
                     })
-
                 },
                 onShow: () => {
                     this.setState({
@@ -88,7 +90,6 @@ export default class LoginPg extends React.Component {
                     this.setState({
                         errorshow: true
                     })
-
                 },
                 onShow: () => {
                     this.setState({
@@ -97,7 +98,7 @@ export default class LoginPg extends React.Component {
                 }
             })
         }
-        /*else if (regpsw.test(password) == false) {
+       else if (regpsw.test(password) == false) {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
@@ -108,7 +109,6 @@ export default class LoginPg extends React.Component {
                     this.setState({
                         errorshow: true
                     })
-
                 },
                 onShow: () => {
                     this.setState({
@@ -116,7 +116,7 @@ export default class LoginPg extends React.Component {
                     })
                 }
             })
-        }*/
+        }
         else{
             this.props.navigation.navigate('ForgotScreen1',)
 
@@ -124,14 +124,15 @@ export default class LoginPg extends React.Component {
     }
     render() {
         return (
+            <SafeAreaView>
             <ScrollView style={{flexGrow:1}}>
                 <View >
                     <View style={styles.stlingView}>
-                        <Text style={styles.texthaveAcc}>No account?<Text style={{ textDecorationLine: "underline", }}> Sign Up</Text></Text>
+                        <Text style={styles.texthaveAcc}>No account?<Text style={{ textDecorationLine: "underline",fontWeight:'bold'}}> Sign Up</Text></Text>
                         <Text style={{ fontSize: 20, fontWeight: "bold", paddingBottom: 8 }}>Log in</Text>
                         <Text style={{ paddingBottom: 10 }}>Welcome back to MLH, login to continue</Text>
                     </View>
-                    {/* {/ ----TextInput--- /} */}
+                   
                     <Text style={styles.textinput}>Email</Text>
                     <TextInput
                         style={styles.input}
@@ -153,13 +154,12 @@ export default class LoginPg extends React.Component {
                         </TouchableOpacity>
                     </View>
 
-                    {/* ---forgot psw--- */}
+
                     <View style={{ alignItems: "flex-end", paddingRight: 10 }}>
                         <Text>Forgot password?</Text>
                     </View>
 
-                    {/* ----Button---- */}
-
+                   
                     <TouchableOpacity
                     onPress={()=>this.createLoginValidation()}
                         style={styles.button}>
@@ -167,15 +167,13 @@ export default class LoginPg extends React.Component {
                     </TouchableOpacity>
                 </View>
 
-
-
                 {/* ----2nd part----
              ----login with---  */}
-                <View>
-                    <View style={{ justifyContent: 'flex-end', alignItems: "center", marginTop:Platform.OS === "ios" ? 350 :250,}}>
+                <View style={{marginTop:Platform.OS === "ios" ? 300 :250}}>
+                    <View style={{ justifyContent: 'flex-end', alignItems: "center",marginBottom:15}}>
                         <Text>or login with</Text>
                     </View>
-                    {/* ----Img---  */}
+               
                     <View style={styles.imgView}>
                         <Image style={styles.imgstyle}
                             source={require('../Assets/icon_google.png')}
@@ -192,8 +190,9 @@ export default class LoginPg extends React.Component {
                     </View>
                 </View>
                 <Toast config={toastConfig} />
-            {/* </View> */}
+       
             </ScrollView>
+            </SafeAreaView>
         );
     }
 }
@@ -202,12 +201,12 @@ const styles = StyleSheet.create({
     stlingView: { paddingLeft: 10 },
     texthaveAcc: { margin: 8, marginBottom: 20, paddingLeft: 230 },
     input: {
-        height: 40,
+        height: 43,
         margin: 10,
         borderColor: "#e4e1ed",
         borderWidth: 2,
         padding: 6,
-        borderRadius: 5,
+        borderRadius: 7,
         backgroundColor: "#f6f5fa"
     },
     textinput: { paddingLeft: 10, paddingTop: 5 },
@@ -215,8 +214,8 @@ const styles = StyleSheet.create({
     passwordview: {
         flexDirection: "row",
         alignItems: "center",
-        height: 40,
-        borderRadius: 5,
+        height: 43,
+        borderRadius: 7,
         backgroundColor: "#f6f5fa",
         borderWidth: 2,
         borderColor: "#e4e1ed",
@@ -226,7 +225,7 @@ const styles = StyleSheet.create({
         height: 50,
         margin: 10,
         padding: 6,
-        borderRadius: 5,
+        borderRadius: 7,
         backgroundColor: '#d84b51',
         justifyContent: "center",
         alignItems: "center"
@@ -237,23 +236,3 @@ const styles = StyleSheet.create({
         height: 30, width: 30
     }
 })
-// const styles = StyleSheet.create({
-//     containerMain: {
-//       flex: 1,
-//       alignItems: 'center',
-//       justifyContent: 'center',
-//     },
-//     bottomView: {
-//       width: '100%',
-//       height: 50,
-//       backgroundColor: 'red',
-//       justifyContent: 'center',
-//       alignItems: 'center',
-//       position: 'absolute', //Here is the trick
-//       bottom: 0, //Here is the trick
-//     },
-//     textStyle: {
-//       color: '#fff',
-//       fontSize: 18,
-//     },
-//   });

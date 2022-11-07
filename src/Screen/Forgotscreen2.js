@@ -51,7 +51,7 @@ color="white" size={30}/>
       )
 
 }
-export default class ForgotScreen2 extends Component {
+export default class Forgotscreen2 extends Component {
     
     state = {
         name: "",

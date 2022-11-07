@@ -34,7 +34,7 @@ color="white" size={30}/>
 }
  
 
-export default class ForgotScreen extends Component {
+export default class Forgotscrren1 extends Component {
     
     state = {
         name: "",
@@ -116,7 +116,7 @@ export default class ForgotScreen extends Component {
 
         }
         else{
-            this.props.navigation.navigate('ForgotScreen2',)
+            this.props.navigation.navigate('Forgotscreen2',)
 
         }
     }
