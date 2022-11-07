@@ -16,7 +16,7 @@ class StackNavigation extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName='OnBoardingScreen'>
 
           <Stack.Screen name="SplashScreen" component={SplashScreen} options={{
             headerShown: false,

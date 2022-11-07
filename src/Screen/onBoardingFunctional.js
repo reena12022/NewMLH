@@ -1,110 +1,99 @@
+
 import React from "react";
 
 import { SafeAreaView, ScrollView, TouchableOpacity, Text, View, Image, StyleSheet, FlatList, Platform } from 'react-native'
 
-
+import AppIntroSlider from 'react-native-app-intro-slider';
 import PaginationDot from 'react-native-animated-pagination-dot'
-class OnBoardingScreen extends React.Component {
+import { useSafeAreaFrame } from "react-native-safe-area-context";
+const OnBoardingScreen =()=> {
 
-    constructor() {
-        super();
-        this.state = {
+    const slides = [{
+
+        key: 1,
+        title: 'Continuous Medical Education:',
+        text: 'strengthen your practice online',
+        subText: 'Access medical courses online , find webinars of train on-site. Learn from global or local healthcare experts',
+        image: require('../Assets/Splash.jpg'),
+        sk: "Skip",
+        pk: " ",
+
+    },
+    {
+        key: 2,
+        title: 'Continuous Medical Education:',
+        text: 'strengthen your practice online',
+        subText: 'Access medical courses online , find webinars of train on-site. Learn from global or local healthcare experts',
+        image: require('../Assets/Group1.png'),
+        sk: "Skip",
+        pk: "Previous"
+    },
+    {
+        key: 3,
+        title: 'Continuous Medical Education:',
+        text: 'strengthen your practice online',
+        subText: 'Access medical courses online , find webinars of train on-site. Learn from global or local healthcare experts',
+        image: require('../Assets/Group2.png'),
+        sk: null,
+        pk: "Previous"
+
+    }],
+
+    const [showSlider,setshowSlider] = useState('true')
             currentIndex: 0,
 
-            myid: 1,
+            myid: 0,
             startid: 1,
             showSlider: true,
-            slides: [{
-
-                key: 1,
-                title: 'Continuous Medical Education:',
-                text: 'strengthen your practice online',
-                subText: 'Access medical courses online , find webinars of train on-site. Learn from global or local healthcare experts',
-                image: require('../Assets/Splash.jpg'),
-                sk: "Skip",
-                pk: " ",
-
-            },
-            {
-                key: 2,
-                title: 'Continuous Medical Education:',
-                text: 'strengthen your practice online',
-                subText: 'Access medical courses online , find webinars of train on-site. Learn from global or local healthcare experts',
-                image: require('../Assets/Group1.png'),
-                sk: "Skip",
-                pk: "Previous"
-            },
-            {
-                key: 3,
-                title: 'Continuous Medical Education:',
-                text: 'strengthen your practice online',
-                subText: 'Access medical courses online , find webinars of train on-site. Learn from global or local healthcare experts',
-                image: require('../Assets/Group2.png'),
-                sk: null,
-                pk: "Previous"
-
-            }],
-        }
-    }
+            slides: [],
+        
+    
 
     onpress = (event) => {
-
+       
         // const positionX = event.nativeEvent.contentOffset.x;
         // const positionY = event.nativeEvent.contentOffset.y;
-
-        //this.state.myid = this.state.myid+1
-
-        console.log("myId>>>>", this.state.myid)
-        this.setState({ myid: this.state.key })
+          
+       // this.state.myid = this.state.myid+1
+       
+        console.log("myId>>>>",this.state.myid)
+      this.setState({myid:this.state.key})
     }
 
     renderItemList = ({ item }) => {
 
-
+        
         // this.state.myid = item.key
-
+    
         return (
 
             <View style={styles.slide}>
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginRight: Platform.OS === 'android' ? 5 : 20 }}>
                     <TouchableOpacity >
-                        <Text style={styles.previous}> {item.pk}  </Text>
+                        <Text style={{ fontSize: 20, }}> {item.pk}  </Text>
+                        <Text style={{ fontSize: 20, }}> {this.state.myid}  </Text>
 
 
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.skip}>
+                    <TouchableOpacity >
                         <Text style={{ fontSize: 20, }}> {item.sk}</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={{ width: 350, height: 600 }}>
+                <View >
+                    <TouchableOpacity onPress={() => this.onpress()} >                    
+                        <Image style={styles.imageStyle} source={item.image} />
+                    </TouchableOpacity>
 
-                    <Image style={styles.imageStyle} source={item.image} />
-
-
-
-                    <View style={{ marginLeft: 30, marginRight: 30 }}>
-
+                    <View style={{ margin: 20 }}>
                         <Text style={styles.title}>{item.title}</Text>
                         <Text style={styles.text}>{item.text}</Text>
-                        <View style={{ width: 300 }}>
+                        <View style={{ width: '50%' }}>
                             <Text style={styles.subText}>{item.subText}</Text>
                         </View>
                     </View>
-
-
-                    <View style={{ marginLeft: 20 }}>
-                        <PaginationDot
-                            activeDotColor={"#c71585"}
-                            inactiveDotColor={"red"}
-                            curPage={item.key - 1}
-                            maxPage={3}
-                            sizeRatio={2.0}
-                        />
-                    </View>
-
 
                 </View>
 
@@ -168,11 +157,11 @@ class OnBoardingScreen extends React.Component {
     //     )
     // }
 
-
+  
 
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
 
 
                 <ScrollView>
@@ -188,11 +177,8 @@ class OnBoardingScreen extends React.Component {
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
                                 pagingEnabled={true}
-
+                             
                                 keyExtractor={item => item.key}
-                            // onScroll={ ([{ nativeEvent: { contentOffset: { x: 
-                            //     scrollX } } }], {listener: (event) => this.onpress(event)})}
-                            //     scrollEventThrottle={16}
 
                             />
 
@@ -229,9 +215,15 @@ class OnBoardingScreen extends React.Component {
                     /> */}
 
 
+                    <PaginationDot
+                        activeDotColor={"#c71585"}
+                        inactiveDotColor={"black"}
+                        curPage={this.state.myid}
+                        maxPage={3}
+                        sizeRatio={2.0}
+                    />
 
-
-                    <View style={{ marginTop: 10, }}>
+                    <View style={{ marginTop: 80, }}>
                         <View style={styles.btn1}>
                             <TouchableOpacity style={styles.touchbtn1} >
 
@@ -251,7 +243,7 @@ class OnBoardingScreen extends React.Component {
                     </View>
                 </ScrollView>
 
-            </View>
+            </SafeAreaView>
         )
     }
 }
@@ -270,18 +262,16 @@ const styles = StyleSheet.create({
         height: '60%',
         borderRadius: 10,
         marginLeft: 10,
-
+        alignItems: 'center',
+        justifyContent: 'center'
 
     },
     slide: {
-        width: 400,
-        height: Platform.OS === 'android' ? 600 : 650,
+        height: 500,
 
         // backgroundColor: "red",
         // marginBottom: 30
     },
-    skip: { marginTop: Platform.OS === 'ios' ? 40 : 0 },
-    previous: { fontSize: 20, marginTop: Platform.OS === 'ios' ? 40 : 0 },
     row: {
         flexDirection: 'row',
         alignSelf: 'flex-start',
@@ -356,127 +346,118 @@ export default OnBoardingScreen;
 
 
 
+// import React from 'react';
+// import {View, Text, Image, StyleSheet, StatusBar} from 'react-native';
+// // import Icon from 'react-native-vector-icons/Ionicons';
+// import AppIntroSlider from 'react-native-app-intro-slider';
 
+// const data = [
+//   {
+//     title: 'Title 1',
+//     text: 'Description.\nSay something cool',
+//     image: require('../Assets/Splash.jpg'),
+//     bg: '#59b2ab',
+//   },
+//   {
+//     title: 'Title 2',
+//     text: 'Other cool stuff',
+//     image: require('../Assets/Splash.jpg'),
+//     bg: '#febe29',
+//   },
+//   {
+//     title: 'Rocket guy',
+//     text: "I'm already out of descriptions\n\nLorem ipsum bla bla bla",
+//     image: require('../Assets/Splash.jpg'),
+//     bg: '#22bcb5',
+//   },
+// ];
 
+// type Item = typeof data[0];
 
+// const styles = StyleSheet.create({
+//   slide: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   image: {
+//     width: 320,
+//     height: 320,
+//     marginVertical: 32,
+//   },
+//   text: {
+//     color: 'rgba(255, 255, 255, 0.8)',
+//     textAlign: 'center',
+//   },
+//   title: {
+//     fontSize: 22,
+//     color: 'white',
+//     textAlign: 'center',
+//   },
+//   buttonCircle: {
+//     top:0,
+//     position:'absolute',
+//     width: 44,
+//     height: 44,
+//     backgroundColor: 'rgba(0, 0, 0, .2)',
+//     borderRadius: 22,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+// });
 
+// export default class OnBoardingScreen extends React.Component {
+//   _renderItem = ({item}: {item: Item}) => {
+//     return (
+//       <View
+//         style={[
+//           styles.slide,
+//           {
+//             backgroundColor: item.bg,
+//           },
+//         ]}>
+//         <Text style={styles.title}>{item.title}</Text>
+//         <Image source={item.image} style={styles.image} />
+//         <Text style={styles.text}>{item.text}</Text>
+//       </View>
+//     );
+//   };
 
+//   _keyExtractor = (item: Item) => item.title;
 
+//   _renderNextButton = () => {
+//     return (
+//       <View style={styles.buttonCircle}>
+//         {/* <Icon
+//           name="md-arrow-round-forward"
+//           color="rgba(255, 255, 255, .9)"
+//           size={24}
+//         /> */}<Text>PORS</Text>
+//       </View>
+//     );
+//   };
 
+//   _renderDoneButton = () => {
+//     return (
+//       <View style={styles.buttonCircle}>
+//         {/* <Icon name="md-checkmark" color="rgba(255, 255, 255, .9)" size={24} /> */}
+//         <Text>ABCD</Text>
+//       </View>
+//     );
+//   };
 
-
-// // // import React from 'react';
-// // // import {View, Text, Image, StyleSheet, StatusBar} from 'react-native';
-// // // // import Icon from 'react-native-vector-icons/Ionicons';
-// // // import AppIntroSlider from 'react-native-app-intro-slider';
-
-// // // const data = [
-// // //   {
-// // //     title: 'Title 1',
-// // //     text: 'Description.\nSay something cool',
-// // //     image: require('../Assets/Splash.jpg'),
-// // //     bg: '#59b2ab',
-// // //   },
-// // //   {
-// // //     title: 'Title 2',
-// // //     text: 'Other cool stuff',
-// // //     image: require('../Assets/Splash.jpg'),
-// // //     bg: '#febe29',
-// // //   },
-// // //   {
-// // //     title: 'Rocket guy',
-// // //     text: "I'm already out of descriptions\n\nLorem ipsum bla bla bla",
-// // //     image: require('../Assets/Splash.jpg'),
-// // //     bg: '#22bcb5',
-// // //   },
-// // // ];
-
-// // // type Item = typeof data[0];
-
-// // // const styles = StyleSheet.create({
-// // //   slide: {
-// // //     flex: 1,
-// // //     alignItems: 'center',
-// // //     justifyContent: 'center',
-// // //   },
-// // //   image: {
-// // //     width: 320,
-// // //     height: 320,
-// // //     marginVertical: 32,
-// // //   },
-// // //   text: {
-// // //     color: 'rgba(255, 255, 255, 0.8)',
-// // //     textAlign: 'center',
-// // //   },
-// // //   title: {
-// // //     fontSize: 22,
-// // //     color: 'white',
-// // //     textAlign: 'center',
-// // //   },
-// // //   buttonCircle: {
-// // //     top:0,
-// // //     position:'absolute',
-// // //     width: 44,
-// // //     height: 44,
-// // //     backgroundColor: 'rgba(0, 0, 0, .2)',
-// // //     borderRadius: 22,
-// // //     justifyContent: 'center',
-// // //     alignItems: 'center',
-// // //   },
-// // // });
-
-// // // export default class OnBoardingScreen extends React.Component {
-// // //   _renderItem = ({item}: {item: Item}) => {
-// // //     return (
-// // //       <View
-// // //         style={[
-// // //           styles.slide,
-// // //           {
-// // //             backgroundColor: item.bg,
-// // //           },
-// // //         ]}>
-// // //         <Text style={styles.title}>{item.title}</Text>
-// // //         <Image source={item.image} style={styles.image} />
-// // //         <Text style={styles.text}>{item.text}</Text>
-// // //       </View>
-// // //     );
-// // //   };
-
-// // //   _keyExtractor = (item: Item) => item.title;
-
-// // //   _renderNextButton = () => {
-// // //     return (
-// // //       <View style={styles.buttonCircle}>
-// // //         {/* <Icon
-// // //           name="md-arrow-round-forward"
-// // //           color="rgba(255, 255, 255, .9)"
-// // //           size={24}
-// // //         /> */}<Text>PORS</Text>
-// // //       </View>
-// // //     );
-// // //   };
-
-// // //   _renderDoneButton = () => {
-// // //     return (
-// // //       <View style={styles.buttonCircle}>
-// // //         {/* <Icon name="md-checkmark" color="rgba(255, 255, 255, .9)" size={24} /> */}
-// // //         <Text>ABCD</Text>
-// // //       </View>
-// // //     );
-// // //   };
-
-// // //   render() {
-// // //     return (
-// // //       <View style={{flex: 1}}>
-// // //         <StatusBar translucent backgroundColor="transparent" />
-// // //         <AppIntroSlider
-// // //           keyExtractor={this._keyExtractor}
-// // //           renderDoneButton={this._renderDoneButton}
-// // //           renderNextButton={this._renderNextButton}
-// // //           renderItem={this._renderItem}
-// // //           data={data}
-// // //         />
-// // //       </View>
-// // //     );
-// // //   }
-// // // }
+//   render() {
+//     return (
+//       <View style={{flex: 1}}>
+//         <StatusBar translucent backgroundColor="transparent" />
+//         <AppIntroSlider
+//           keyExtractor={this._keyExtractor}
+//           renderDoneButton={this._renderDoneButton}
+//           renderNextButton={this._renderNextButton}
+//           renderItem={this._renderItem}
+//           data={data}
+//         />
+//       </View>
+//     );
+//   }
+// }
