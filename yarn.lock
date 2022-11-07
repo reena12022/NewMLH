@@ -4655,8 +4655,10 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@>=0.57", "react-native@0.66.0":
-  "version" "0.66.0"
+"react-native@*", "react-native@>=0.57", "react-native@0.66.5":
+  "integrity" "sha512-dC5xmE1anT+m8eGU0N/gv2XUWZygii6TTqbwZPsN+uMhVvjxt4FsTqpZOFFvA5sxLPR/NDEz8uybTvItNBMClw=="
+  "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.66.5.tgz"
+  "version" "0.66.5"
   dependencies:
     "@jest/create-cache-key-function" "^27.0.1"
     "@react-native-community/cli" "^6.0.0"

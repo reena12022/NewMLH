@@ -23,18 +23,17 @@ const toastConfig ={
         They will be passed when calling the `show` method (see below)
       */
       tomatoToast: ({ text1, props }) => (
-        <View style={{ flexDirection:'row' , height: 80, width: '90%', backgroundColor: '#dc143c',alignItems:'center',justifyContent:'center',borderRadius:10}}>
-              <Icon name="error-outline"
-color="white" size={30}/> 
-          <Text style={{fontSize:16,fontWeight:'400',color:'white'}}>{text1}</Text>
-          
-        </View>
+        <View style={{ flexDirection: 'row', height: 80, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 ,padding:10 }}>
+        <Icon name="error-outline"
+            color="white" size={30} />
+        <Text style={{  fontSize: 14, fontWeight: '400', color: 'white',flexWrap:'wrap',flex:1 ,paddingStart:5 }}>{text1}</Text>
+    </View>
       )
 
 }
  
 
-export default class Forgotscrren1 extends Component {
+export default class ForgotScreen extends Component {
     
     state = {
         name: "",
@@ -235,7 +234,7 @@ const style = StyleSheet.create({
         padding: 10,
         width: '90%',
         borderWidth: 1,
-        borderColor: '#d8bfd8',
+        borderColor: '#e4e1ed',
         borderRadius:10
 
     },
@@ -278,8 +277,8 @@ const style = StyleSheet.create({
         justifyContent: 'space-between',
         padding:2,
         width: '90%',
-        borderWidth: 1,
-        borderColor: 'gray',
+        borderWidth: 2,
+        borderColor: '#e4e1ed',
         borderRadius:10
     },
     img3:

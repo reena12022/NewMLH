@@ -88,6 +88,19 @@ export default class Setpassword extends Component {
 
 
         }
+        else if(this.state.password.length<8)
+        {
+            Toast.show({
+           type:'tomatoToast',
+                position:'top',
+                text1:'Please enter atlaest 8 charcter',
+                visibilityTime:2000,
+                autoHide:true
+              
+            })
+
+
+        }
         else  if(this.state.confmpsw == '')
         {
             Toast.show({

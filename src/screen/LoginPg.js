@@ -129,7 +129,7 @@ export default class LoginPg extends React.Component {
                 <View >
                     <View style={styles.stlingView}>
                         <Text style={styles.texthaveAcc}>No account?<Text style={{ textDecorationLine: "underline",fontWeight:'bold'}}> Sign Up</Text></Text>
-                        <Text style={{ fontSize: 20, fontWeight: "bold", paddingBottom: 8 }}>Log in</Text>
+                        <Text style={{ fontSize: 20, fontWeight: "bold", paddingBottom: 8,paddingTop:20 }}>Log in</Text>
                         <Text style={{ paddingBottom: 10 }}>Welcome back to MLH, login to continue</Text>
                     </View>
                    
@@ -155,7 +155,7 @@ export default class LoginPg extends React.Component {
                     </View>
 
 
-                    <View style={{ alignItems: "flex-end", paddingRight: 10 }}>
+                    <View style={{ alignItems: "flex-end", paddingRight: 10,paddingBottom:20 }}>
                         <Text>Forgot password?</Text>
                     </View>
 
@@ -199,7 +199,9 @@ export default class LoginPg extends React.Component {
 
 const styles = StyleSheet.create({
     stlingView: { paddingLeft: 10 },
-    texthaveAcc: { margin: 8, marginBottom: 20, paddingLeft: 230 },
+    texthaveAcc: { 
+        alignSelf:"flex-end",paddingRight:10
+    },
     input: {
         height: 43,
         margin: 10,

@@ -171,7 +171,7 @@ export default class SignUp extends React.Component {
 
                 <View style={styles.stlingView}>
                     <Text style={styles.texthaveAcc}>Have account?<Text style={{ textDecorationLine: "underline", fontWeight:'bold'}}> Log in</Text></Text>
-                    <Text style={{ fontSize: 20, fontWeight:'bold', paddingBottom: 8 }}>Sign up</Text>
+                    <Text style={{ fontSize: 20, fontWeight:'bold', paddingBottom: 8,paddingTop:20 }}>Sign up</Text>
                     <Text style={{ paddingBottom: 10 }}>Create your MLH account to continue</Text>
                 </View>
            
@@ -268,7 +268,9 @@ const styles = StyleSheet.create({
     stlingView: { paddingLeft: 10 },
     checkBoxstyle:{
  paddingLeft: 10 ,flexDirection:"row"},
-    texthaveAcc: { paddingLeft: 230, margin: 8, marginBottom: 20 },
+ texthaveAcc: { 
+    alignSelf:"flex-end",paddingRight:10
+},
     input: {
         height: 43,
         margin: 10,

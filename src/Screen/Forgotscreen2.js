@@ -42,16 +42,15 @@ const toastConfig ={
         They will be passed when calling the `show` method (see below)
       */
       tomatoToast: ({ text1, props }) => (
-        <View style={{ flexDirection:'row' , height: 60, width: '90%', backgroundColor: '#dc143c',alignItems:'center',justifyContent:'center',borderRadius:10}}>
-              <Icon name="error-outline"
-color="white" size={30}/> 
-          <Text style={{marginLeft:20,fontSize:16,fontWeight:'400',color:'white'}}>{text1}</Text>
-          
-        </View>
+        <View style={{ flexDirection: 'row', height: 80, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 ,padding:10 }}>
+        <Icon name="error-outline"
+            color="white" size={30} />
+        <Text style={{  fontSize: 14, fontWeight: '400', color: 'white',flexWrap:'wrap',flex:1 ,paddingStart:5 }}>{text1}</Text>
+    </View>
       )
 
 }
-export default class Forgotscreen2 extends Component {
+export default class ForgotScreen2 extends Component {
     
     state = {
         name: "",

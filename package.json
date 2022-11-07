@@ -16,7 +16,7 @@
     "@react-navigation/stack": "^6.3.3",
     "material-react-toastify": "^1.0.1",
     "react": "17.0.2",
-    "react-native": "0.66.0",
+    "react-native": "0.66.5",
     "react-native-animated-pagination-dot": "^0.4.0",
     "react-native-app-intro-slider": "^4.0.4",
     "react-native-countdown-component": "^2.7.1",
