@@ -1,17 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, SafeAreaView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icons from 'react-native-vector-icons/Feather'
 import Toast from 'react-native-toast-message';
+import { signup } from '../Services/Service';
+
 Icon.loadFont().then();
 Icons.loadFont().then()
 const toastConfig = {
 
     tomatoToast: ({ text1, props }) => (
-        <View style={{ flexDirection: 'row', height: 80, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 ,padding:10}}>
+        <View style={{ flexDirection: 'row', height: 75, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10, padding: 10 }}>
             <Icon name="error-outline"
                 color="white" size={30} />
-            <Text style={{ fontSize: 14, fontWeight: '400', color: 'white',flexWrap:'wrap',flex:1 ,paddingStart:5}}>{text1}</Text>
+            <Text style={{ fontSize: 14, fontWeight: '400', color: 'white', flexWrap: 'wrap', flex: 1, paddingStart: 5 }}>{text1}</Text>
 
         </View>
     )
@@ -26,8 +28,8 @@ export default class SignUp extends React.Component {
             selected: false,
             isselected: false,
             psw: true,
-            firstName: "",
-            lastName: "",
+            first_name: "",
+            last_name: "",
             email: "",
             password: "",
             errorshow: true
@@ -40,7 +42,7 @@ export default class SignUp extends React.Component {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         let regpsw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
-        if (this.state.firstName == '') {
+        if (this.state.first_name == '') {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
@@ -59,7 +61,7 @@ export default class SignUp extends React.Component {
                 }
             })
         }
-        else if (this.state.lastName == '') {
+        else if (this.state.last_name == '') {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
@@ -98,7 +100,7 @@ export default class SignUp extends React.Component {
             })
         }
         else if (reg.test(email)
- == false) {
+            == false) {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
@@ -136,56 +138,97 @@ export default class SignUp extends React.Component {
                 }
             })
         }
-        else if (regpsw.test(password) == false) {
-            Toast.show({
-                type: 'tomatoToast',
-                position: 'top',
-                text1: 'Minimum eight characters, at least one uppercase letter, one lowercase letter and one number',
-                visibilityTime: 3000,
-                autoHide: true,
-                onHide: () => {
-                    this.setState({
-                        errorshow: true
-                    })
+        // else if (regpsw.test(password) == false) {
+        //     Toast.show({
+        //         type: 'tomatoToast',
+        //         position: 'top',
+        //         text1: 'Minimum eight characters, at least one uppercase letter, one lowercase letter and one number',
+        //         visibilityTime: 3000,
+        //         autoHide: true,
+        //         onHide: () => {
+        //             this.setState({
+        //                 errorshow: true
+        //             })
 
+        //         },
+        //         onShow: () => {
+        //             this.setState({
+        //                 errorshow: false
+        //             })
+        //         }
+        // })
+        // }
+        else {
+            const data = {
+                "data":
+                {
+                    "type": "email_account",
+                    "attributes": {
+                        "first_name": this.state.first_name,
+                        "last_name": this.state.last_name,
+                        "email": this.state.email,
+                        "password": this.state.password,
+                    }
                 },
-                onShow: () => {
-                    this.setState({
-                        errorshow: false
-                    })
+                "profile_image": "",
+            }
+            console.log("display>>", data)
+            signup(data).then(res => {
+                console.log("res::::", typeof(res))
+
+   try {
+                if (res) {
+                    console.log('check::',res.errors[0])
+                    console.log('check:111:',res.data)
+                    if(res.data==undefined || res.data=='undefined')
+                    {
+alert(res.errors[0].account);
+                    }
+                } 
+            }
+            catch(error){
+                Alert.alert('registration', 'successfull registration',[
+                    {
+                        text: 'OK',
+                        onPress: () => this.props.navigation.navigate('LoginPg'),    
                 }
-            })
+            ])
+                console.log("gfhghjbjn",error)
+
+            }
+        
+        })
         }
-        else{
-            this.props.navigation.navigate('Login',)
-
-        }
-    }
+    }       
+            
+    
 
 
-    render() {
 
-        return (
-            <SafeAreaView>
+
+render() {
+
+    return (
+        <SafeAreaView>
             <ScrollView>
 
                 <View style={styles.stlingView}>
-                    <Text style={styles.texthaveAcc}>Have account?<Text style={{ textDecorationLine: "underline", fontWeight:'bold'}}> Log in</Text></Text>
-                    <Text style={{ fontSize: 20, fontWeight:'bold', paddingBottom: 8,paddingTop:20 }}>Sign up</Text>
+                    <Text style={styles.texthaveAcc}>Have account?<Text onPress={() => this.props.navigation.navigate("LoginPg")} style={{ textDecorationLine: "underline", fontWeight: 'bold' }}> Log in</Text></Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', paddingBottom: 8, paddingTop: 20 }}>Sign up</Text>
                     <Text style={{ paddingBottom: 10 }}>Create your MLH account to continue</Text>
                 </View>
-           
+
                 <View>
                     <Text style={styles.textinput}>First Name</Text>
                     <TextInput
                         style={styles.input}
-                        value={this.state.firstName}
-                        onChangeText={(txt) => this.setState({ firstName: txt })} />
+                        value={this.state.first_name}
+                        onChangeText={(txt) => this.setState({ first_name: txt })} />
                     <Text style={styles.textinput}>Last Name</Text>
                     <TextInput
                         style={styles.input}
-                        value={this.state.lastName}
-                        onChangeText={(txt) => this.setState({ lastName: txt })} />
+                        value={this.state.last_name}
+                        onChangeText={(txt) => this.setState({ last_name: txt })} />
                     <Text style={styles.textinput}>Email</Text>
                     <TextInput
                         style={styles.input}
@@ -207,7 +250,7 @@ export default class SignUp extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-           
+
                 <View style={styles.checkBoxstyle}>
                     <TouchableOpacity
                         onPress={() => this.setState({ selected: !this.state.selected })}
@@ -216,9 +259,9 @@ export default class SignUp extends React.Component {
                             size={20}
                             name={this.state.selected ? 'check-box' : 'check-box-outline-blank'} />
                     </TouchableOpacity>
-                    <Text>I have read and agreed with the <Text style={{fontWeight:'bold'}}>Terms and Conditions*</Text></Text>
-                   </View>
-                   <View style={styles.checkBoxstyle}>
+                    <Text>I have read and agreed with the <Text style={{ fontWeight: 'bold' }}>Terms and Conditions*</Text></Text>
+                </View>
+                <View style={styles.checkBoxstyle}>
                     <TouchableOpacity
                         onPress={() => this.setState({ isselected: !this.state.isselected })}
                         style={[styles.checkBox]}>
@@ -228,7 +271,7 @@ export default class SignUp extends React.Component {
                     </TouchableOpacity>
                     <Text>I agree to receiving news and information from Medical Learning Hub</Text>
                 </View>
-             
+
                 <View>
                     <TouchableOpacity
                         style={styles.button}
@@ -236,13 +279,13 @@ export default class SignUp extends React.Component {
                         <Text style={styles.signuptext}>Sign up</Text>
                     </TouchableOpacity>
                 </View>
-             
-                <View style={{ marginTop: Platform.OS === "ios" ? 20 : 10 }}>
+
+                <View style={{ marginTop: Platform.OS === "ios" ? 30 : 10 }}>
                     <View style={{ justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
                         <Text>or sign up with</Text>
                     </View>
 
-                    
+
                     <View style={styles.imgView}>
                         <Image style={styles.imgstyle}
                             source={require('../Assets/icon_google.png')}
@@ -260,17 +303,18 @@ export default class SignUp extends React.Component {
                 </View>
                 <Toast config={toastConfig} />
             </ScrollView>
-            </SafeAreaView>
-        )
-    }
+        </SafeAreaView>
+    )
+}
 }
 const styles = StyleSheet.create({
     stlingView: { paddingLeft: 10 },
-    checkBoxstyle:{
- paddingLeft: 10 ,flexDirection:"row"},
- texthaveAcc: { 
-    alignSelf:"flex-end",paddingRight:10
-},
+    checkBoxstyle: {
+        paddingLeft: 10, flexDirection: "row"
+    },
+    texthaveAcc: {
+        alignSelf: "flex-end", paddingRight: 10
+    },
     input: {
         height: 43,
         margin: 10,
