@@ -4,9 +4,11 @@ import { TextInput,View,ScrollView,Image, StyleSheet,Alert, FlatList, Text } fro
 import Buttoncom from './buttoncom';
 import CountDown from 'react-native-countdown-component';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 Icon.loadFont().then();
 
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
+import {Otpsend}from '../Services/service';
 const toastConfig ={
     success: (props) => (
         <BaseToast
@@ -63,14 +65,15 @@ export default class ForgotScreen2 extends Component {
         submitDisabled: true,
         data: null,
         value0: false,
-        value1: false,
-        value2: true,
-        value3: false,
-        value4: false,
+        pin1: '',
+        pin2: '',
+        pin3: '',
+        pin4: '',
         lineWidth: 10,
+        token:''
     }
    
-    Senddata()
+    Senddata=async() =>
     {
         if(!this.state.email == '')
         {
@@ -86,7 +89,88 @@ export default class ForgotScreen2 extends Component {
 
         }
         else{
-            this.props.navigation.navigate('Setpassword',)
+            this.state.token = await AsyncStorage.getItem('@storage_Key')
+            this.setState({
+                otp: this.state.pin1+this.state.pin2+this.state.pin3+this.state.pin4          })
+                console.log(this.state.otp)
+                console.log(this.state.token)
+            Otpsend(this.state.token,this.state.otp)
+
+            .then(res=> {
+           
+                console.log("response>>",res)
+                if(res.messages)
+                {
+                   // Alert.alert('OTP validation Success')
+
+                    this.props.navigation.navigate('Setpassword',)
+
+                }
+                else if(res.errors[0].otp)
+                {
+                    console.log("response>>",res.errors[0].otp)
+                    
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].otp,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                   // Alert.alert(res.errors[0].otp)
+                   // console.log("response>>",res.errors[0].otp)
+                }
+               else if(res.errors[0].token)
+                {
+                    
+                   // Alert.alert(res.errors[0].token)
+                    console.log("response>>",res.errors[0].token)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].token,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+
+                }
+                else if(res.errors[0].password)
+                {
+                    
+                    //Alert.alert(res.errors[0].password)
+                    console.log("response>>",res.errors[0].otp)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].password,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                }
+                else if(res.errors[0].pin)
+                {
+                    
+                    //Alert.alert(res.errors[0].password)
+                    console.log("response>>",res.errors[0].pin)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].pin,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                }
+                
+    
+    
+               })
+               
+            
+
 
         }
     }

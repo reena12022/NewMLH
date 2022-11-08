@@ -5,8 +5,8 @@ import Buttoncom from './buttoncom';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont().then();
 import MyIcon from 'react-native-vector-icons/AntDesign';
-
-
+import {submitmail} from '../Services/service';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 const toastConfig ={
     
@@ -35,28 +35,33 @@ const toastConfig ={
 
 export default class ForgotScreen extends Component {
     
-    state = {
-        name: "",
-        email: "",
+        state={
+            name: "",
+            email: "",
+    
+            password: '',
+            PhoneNo: '',
+            LastName: '',
+            confmpsw: '',
+            submitDisabled: true,
+            errorshow: true,
+            pattern:true,
+    
+            data: null,
+            value0: false,
+            value1: false,
+            value2: true,
+            value3: false,
+            value4: false,
+            lineWidth: 10,
+            mytoken:''
 
-        password: '',
-        PhoneNo: '',
-        LastName: '',
-        confmpsw: '',
-        submitDisabled: true,
-        errorshow: true,
-        pattern:true,
-
-        data: null,
-        value0: false,
-        value1: false,
-        value2: true,
-        value3: false,
-        value4: false,
-        lineWidth: 10,
-    }
+        }
+    
+      
+    
    
-    Senddata()
+        Senddata= async () =>
     {
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -115,9 +120,76 @@ export default class ForgotScreen extends Component {
 
         }
         else{
+          // submitmail(this.state.email)
+          submitmail(this.state.email)
+          .then(async res=> {
+           
+            console.log("response>>",res)
+            if(res.data)
+            {
+                this.setState({mytoken:res.meta.token})
+            console.log(this.state.mytoken)
+            
+        await AsyncStorage.setItem('@storage_Key', this.state.mytoken)
+        
             this.props.navigation.navigate('Forgotscreen2',)
 
+            }
+            else if(res.errors[0].otp)
+            {
+                console.log("response>>",res.errors[0].otp)
+                
+                Toast.show({
+                    type:'tomatoToast',
+                         position:'top',
+                         text1:res.errors[0].otp,
+                         visibilityTime:2000,
+                         autoHide:true
+                       
+                     })
+               // Alert.alert(res.errors[0].otp)
+               // console.log("response>>",res.errors[0].otp)
+            }
+           else if(res.errors[0].token)
+            {
+                
+               // Alert.alert(res.errors[0].token)
+                console.log("response>>",res.errors[0].token)
+                Toast.show({
+                    type:'tomatoToast',
+                         position:'top',
+                         text1:res.errors[0].token,
+                         visibilityTime:2000,
+                         autoHide:true
+                       
+                     })
+
+            }
+            else if(res.errors[0].password)
+            {
+                
+                //Alert.alert(res.errors[0].password)
+                console.log("response>>",res.errors[0].otp)
+                Toast.show({
+                    type:'tomatoToast',
+                         position:'top',
+                         text1:res.errors[0].password,
+                         visibilityTime:2000,
+                         autoHide:true
+                       
+                     })
+            }
+        
+
+           })
+           
+          // await AsyncStorage.setItem('@storage_Key', this.state.mytoken)
+           //console.log(this.state.mytoken)
+
+          // .catch((err)=>console.log("err>>",err))
+
         }
+          
     }
   
     render() {
@@ -158,7 +230,7 @@ export default class ForgotScreen extends Component {
                                     placeholderTextColor="#d8bfd8"
                                     value={this.state.email}
                                     onChangeText={(text) => this.setState({ email: text })}
-                                    secureTextEntry={true}
+                                    secureTextEntry={false}
                                 />
                                   
                                 {

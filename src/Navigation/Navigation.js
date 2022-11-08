@@ -16,7 +16,7 @@ class StackNavigation extends React.Component{
     render(){
         return(
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="SplashScreen" >
+                <Stack.Navigator initialRouteName="ForgotScreen1" >
                 <Stack.Screen name="SignUp" component={SignUp} options={{headerShown:false}} />
                 <Stack.Screen name="LoginPg" component={LoginPg} options={{headerShown:false}} />
 

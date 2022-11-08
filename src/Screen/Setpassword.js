@@ -3,7 +3,8 @@ import { KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { TextInput,View,ScrollView,Image, StyleSheet,Alert, FlatList, Text } from 'react-native';
 import Buttoncom from './buttoncom';
 import MyIcon from 'react-native-vector-icons/Feather';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {setpassword} from '../Services/service'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont().then();
 MyIcon.loadFont().then();
@@ -71,9 +72,10 @@ export default class Setpassword extends Component {
         value3: false,
         value4: false,
         lineWidth: 10,
+        token:''
     }
    
-    Senddata()
+    Senddata=async()=>
     {
         if(this.state.password == '')
         {
@@ -129,7 +131,74 @@ export default class Setpassword extends Component {
             })
         }
         else{
-            this.props.navigation.navigate('Updatepsw',)
+            this.state.token = await AsyncStorage.getItem('@storage_Key')
+            setpassword(this.state.token,this.state.password)
+            .then(res=> {
+           
+                console.log("response>>",res)
+                if(res.data)
+                {
+                   // Alert.alert('Updated Succesfully')
+                   Toast.show({
+                    type:'success',
+                         position:'top',
+                         text1:'Password Upadated Succesfully',
+                         visibilityTime:2000,
+                         autoHide:true
+                       
+                     })
+                    this.props.navigation.navigate('Setpassword',)
+
+                }
+                else if(res.errors[0].otp)
+                {
+                    console.log("response>>",res.errors[0].otp)
+                    
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].otp,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                   // Alert.alert(res.errors[0].otp)
+                   // console.log("response>>",res.errors[0].otp)
+                }
+               else if(res.errors[0].token)
+                {
+                    
+                   // Alert.alert(res.errors[0].token)
+                    console.log("response>>",res.errors[0].token)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].token,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+
+                }
+                else if(res.errors[0].password)
+                {
+                    
+                    //Alert.alert(res.errors[0].password)
+                    console.log("response>>",res.errors[0].otp)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].password,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                }
+    
+    
+               })
+              
+            
 
         }
     }
