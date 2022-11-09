@@ -5,7 +5,7 @@ import Buttoncom from './buttoncom';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont().then();
 import MyIcon from 'react-native-vector-icons/AntDesign';
-import {submitmail} from '../Services/service';
+import {submitmail} from '../Services/Service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 const toastConfig ={
@@ -26,7 +26,7 @@ const toastConfig ={
         <View style={{ flexDirection: 'row', height: 80, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 ,padding:10 }}>
         <Icon name="error-outline"
             color="white" size={30} />
-        <Text style={{  fontSize: 14, fontWeight: '400', color: 'white',flexWrap:'wrap',flex:1 ,paddingStart:5 }}>{text1}</Text>
+        <Text style={{  fontSize: 16, fontWeight: '400', color: 'white',flexWrap:'wrap',flex:1 ,paddingStart:5 }}>{text1}</Text>
     </View>
       )
 
@@ -120,6 +120,8 @@ export default class ForgotScreen extends Component {
 
         }
         else{
+            await AsyncStorage.setItem('email', this.state.email)
+
           // submitmail(this.state.email)
           submitmail(this.state.email)
           .then(async res=> {
@@ -142,7 +144,7 @@ export default class ForgotScreen extends Component {
                 Toast.show({
                     type:'tomatoToast',
                          position:'top',
-                         text1:res.errors[0].otp,
+                         text1:"You have entered incorrect email id please enter registerd email id to login to your MLH account",
                          visibilityTime:2000,
                          autoHide:true
                        

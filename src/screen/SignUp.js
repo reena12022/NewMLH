@@ -2,12 +2,24 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, SafeAreaView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icons from 'react-native-vector-icons/Feather'
-import Toast from 'react-native-toast-message';
+import Toast,{BaseToast} from 'react-native-toast-message';
 import { signup } from '../Services/Service';
 
 Icon.loadFont().then();
 Icons.loadFont().then()
 const toastConfig = {
+    success: (props) => (
+        <BaseToast
+          {...props}
+          style={{ borderLeftColor: 'pink' }}
+          contentContainerStyle={{ paddingHorizontal: 15 }}
+          text1Style={{
+            fontSize: 15,
+            fontWeight: '400'
+          }}
+        />
+      ),
+
 
     tomatoToast: ({ text1, props }) => (
         <View style={{ flexDirection: 'row', height: 75, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10, padding: 10 }}>
@@ -173,31 +185,107 @@ export default class SignUp extends React.Component {
                 "profile_image": "",
             }
             console.log("display>>", data)
-            signup(data).then(res => {
-                console.log("res::::", typeof(res))
+            signup(data)
 
-   try {
-                if (res) {
-                    console.log('check::',res.errors[0])
-                    console.log('check:111:',res.data)
-                    if(res.data==undefined || res.data=='undefined')
-                    {
-alert(res.errors[0].account);
-                    }
-                } 
-            }
-            catch(error){
-                Alert.alert('registration', 'successfull registration',[
-                    {
-                        text: 'OK',
-                        onPress: () => this.props.navigation.navigate('LoginPg'),    
+            .then(res=> {
+           
+                console.log("response>>",res)
+                if(res.data)
+                {
+                   // Alert.alert('OTP validation Success')
+                   Toast.show({
+                    type:'success',
+                         position:'top',
+                         text1:'Account Created succsfully',
+                         visibilityTime:3000,
+                         autoHide:true,
+                         onHide:() =>{
+                            this.props.navigation.navigate('LoginPg',)
+
+                         }
+                       
+                     })
+
+                   // this.props.navigation.navigate('LoginPg',)
+
                 }
-            ])
-                console.log("gfhghjbjn",error)
+                else if(res.errors[0].otp)
+                {
+                    console.log("response>>",res.errors[0].otp)
+                    
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].otp,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                   // Alert.alert(res.errors[0].otp)
+                   // console.log("response>>",res.errors[0].otp)
+                }
+               else if(res.errors[0].token)
+                {
+                    
+                   // Alert.alert(res.errors[0].token)
+                    console.log("response>>",res.errors[0].token)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].token,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
 
-            }
-        
-        })
+                }
+                else if(res.errors[0].password)
+                {
+                    
+                    //Alert.alert(res.errors[0].password)
+                    console.log("response>>",res.errors[0].otp)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].password,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                }
+                else if(res.errors[0].account)
+                {
+                    
+                    //Alert.alert(res.errors[0].password)
+                    console.log("response>>",res.errors[0].account)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].account,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                }
+                else if(res.errors[0].pin)
+                {
+                    
+                    //Alert.alert(res.errors[0].password)
+                    console.log("response>>",res.errors[0].pin)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].pin,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                }
+                
+    
+    
+               })
+            
         }
     }       
             

@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 Icon.loadFont().then();
 
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
-import {Otpsend}from '../Services/service';
+import {Otpsend,submitmail}from '../Services/Service';
 const toastConfig ={
     success: (props) => (
         <BaseToast
@@ -47,7 +47,7 @@ const toastConfig ={
         <View style={{ flexDirection: 'row', height: 80, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 ,padding:10 }}>
         <Icon name="error-outline"
             color="white" size={30} />
-        <Text style={{  fontSize: 14, fontWeight: '400', color: 'white',flexWrap:'wrap',flex:1 ,paddingStart:5 }}>{text1}</Text>
+        <Text style={{  fontSize: 16, fontWeight: '400', color: 'white',flexWrap:'wrap',flex:1 ,paddingStart:5 }}>{text1}</Text>
     </View>
       )
 
@@ -70,25 +70,91 @@ export default class ForgotScreen2 extends Component {
         pin3: '',
         pin4: '',
         lineWidth: 10,
-        token:''
+        token:'',
+        mytoken:'',
+        until:30 * 1,
+        runCountdown: true,
+        id:1
     }
-   
+    ReSenddata=async() =>
+    {
+        this.setState({
+            id:this.state.id+1
+
+        })
+        this.state.email = await AsyncStorage.getItem('email')
+
+        submitmail(this.state.email)
+        .then(async res=> {
+         
+          console.log("response>>",res)
+          if(res.data)
+          {
+              this.setState({mytoken:res.meta.token})
+          console.log(this.state.mytoken)
+          
+      await AsyncStorage.setItem('@storage_Key', this.state.mytoken)
+      
+         // this.props.navigation.navigate('Forgotscreen2',)
+
+          }
+          else if(res.errors[0].otp)
+          {
+              console.log("response>>",res.errors[0].otp)
+              
+              Toast.show({
+                  type:'tomatoToast',
+                       position:'top',
+                       text1:'Please provide correct OTP to reset password if have not recive OTP yet then click on resend code',
+                       visibilityTime:2000,
+                       autoHide:true
+                     
+                   })
+             // Alert.alert(res.errors[0].otp)
+             // console.log("response>>",res.errors[0].otp)
+          }
+         else if(res.errors[0].token)
+          {
+              
+             // Alert.alert(res.errors[0].token)
+              console.log("response>>",res.errors[0].token)
+              Toast.show({
+                  type:'tomatoToast',
+                       position:'top',
+                       text1:res.errors[0].token,
+                       visibilityTime:2000,
+                       autoHide:true
+                     
+                   })
+
+          }
+          else if(res.errors[0].password)
+          {
+              
+              //Alert.alert(res.errors[0].password)
+              console.log("response>>",res.errors[0].otp)
+              Toast.show({
+                  type:'tomatoToast',
+                       position:'top',
+                       text1:res.errors[0].password,
+                       visibilityTime:2000,
+                       autoHide:true
+                     
+                   })
+          }
+      
+
+         })
+
+    }
     Senddata=async() =>
     {
-        if(!this.state.email == '')
-        {
-            Toast.show({
-           type:'tomatoToast',
-                position:'top',
-                text1:'Please Enter Email',
-                visibilityTime:2000,
-                autoHide:true
-              
-            })
+
+       
 
 
-        }
-        else{
+        
+        
             this.state.token = await AsyncStorage.getItem('@storage_Key')
             this.setState({
                 otp: this.state.pin1+this.state.pin2+this.state.pin3+this.state.pin4          })
@@ -113,7 +179,7 @@ export default class ForgotScreen2 extends Component {
                     Toast.show({
                         type:'tomatoToast',
                              position:'top',
-                             text1:res.errors[0].otp,
+                             text1:'Please provide correct OTP to reset password if have not recive OTP yet then click on resend code',
                              visibilityTime:2000,
                              autoHide:true
                            
@@ -172,7 +238,7 @@ export default class ForgotScreen2 extends Component {
             
 
 
-        }
+        
     }
   
     render() {
@@ -204,8 +270,9 @@ export default class ForgotScreen2 extends Component {
 
 <TextInput
     style={style.input2}
-    placeholder=''
-    placeholderTextColor="#faebd7"
+    placeholder='---'
+
+    placeholderTextColor="gray"
     value={this.state.pin1}
     onChangeText={(text) => this.setState({ pin1: text })}
     keyboardType='number-pad'
@@ -213,8 +280,9 @@ export default class ForgotScreen2 extends Component {
 />
 <TextInput
     style={style.input2}
-    placeholder=''
-    placeholderTextColor="#faebd7"
+    placeholder='---'
+
+    placeholderTextColor="gray"
     value={this.state.pin2}
     onChangeText={(text) => this.setState({ pin2: text })}
     keyboardType='number-pad'
@@ -222,8 +290,9 @@ export default class ForgotScreen2 extends Component {
 /> 
 <TextInput
 style={style.input2}
-placeholder=''
-placeholderTextColor="#faebd7"
+placeholder='---'
+
+placeholderTextColor="gray"
 value={this.state.pin3}
 onChangeText={(text) => this.setState({ pin3: text })}
 keyboardType='number-pad'
@@ -248,7 +317,12 @@ keyboardType='number-pad'
                     <Text style={{ fontSize: 16, fontWeight: '800', color: 'gray',paddingLeft:20}}>Code Expires in</Text>
                     </TouchableOpacity>
                     <CountDown
-        until={30 * 1}
+                        id={this.state.id.toString()}
+
+                        until={this.state.until}
+
+                        running={this.state.runCountdown}
+
         size={20}
        // onFinish={() => alert('Finished')}
         digitStyle={{backgroundColor: ''}}
@@ -284,7 +358,7 @@ keyboardType='number-pad'
 </Text>
 <TouchableOpacity  style={style.forgot_button2}
 
-   onPress={()=>this.props.navigation.navigate('Logincom')}
+   onPress={()=>this.ReSenddata()}
    >
 
 <Text style={style.forgot_button4}> Resend Code</Text>

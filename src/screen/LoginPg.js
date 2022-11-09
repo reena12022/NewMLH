@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image ,Alert} from 'react-native';
 import Icons from 'react-native-vector-icons/Feather'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import Toast from 'react-native-toast-message';
+import Toast, {BaseToast} from 'react-native-toast-message';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LoginServices } from '../Services/Service';
 Icon.loadFont().then();
@@ -10,6 +10,17 @@ Icons.loadFont().then()
 
 
 const toastConfig = {
+    success: (props) => (
+        <BaseToast
+          {...props}
+          style={{ borderLeftColor: 'pink' }}
+          contentContainerStyle={{ paddingHorizontal: 15 }}
+          text1Style={{
+            fontSize: 15,
+            fontWeight: '400'
+          }}
+        />
+      ),
 
     tomatoToast: ({ text1, props }) => (
         <View style={{ flexDirection: 'row', height: 75, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10, padding: 10 }}>
@@ -120,41 +131,125 @@ export default class LoginPg extends React.Component {
         // }
         else {
             const data = {
-                "data":
-                {
+                data: {
                     "type": "email_account",
-                    "attributes": {
-                        "email": this.state.email,
-                        "password": this.state.password,
+                    "attributes":
+                    {
+                        "email":this.state.email,
+                        "password": this.state.password
                     }
-                }
+                  }
             }
 
-            console.log("display>>", data)
-            LoginServices(data).then(res=>{
-                console.log("res::::",res)
-          
+            LoginServices(data)
 
-            //     if (res) {
-             
-            //         alert(res.error)
-            // }
-            // else {
-            //         Alert.alert("Login","Sucessfully login")
-            //         [
-            //             {
-            //                 text: "Cancel",
-            //                 onPress: () => console.log("simple press cancel"),
+            .then(res=> {
+           
+                console.log("response>>",res)
+                if(res.account)
+                {
+                   // Alert.alert('OTP validation Success')
+                   Toast.show({
+                    type:'success',
+                         position:'top',
+                         text1:'Login succsfully',
+                         visibilityTime:2000,
+                         autoHide:true
+                       
+                     })
+
+                    this.props.navigation.navigate('ForgotScreen1',)
+
+                }
+                else if(res.status == 500)
+                {
+                    console.log("response>>",res.errors[0].otp)
+                    
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:"Email Not Found",
+                             visibilityTime:2000,
+                             autoHide:true
                            
-            //             },
-            //             { 
-            //                 text: "OK", onPress: () => this.props.navigation.navigate('Forgotscreen1') 
-            //             } 
-            //         ]
-                
-            // }
-        }
-            )
+                         })
+                   // Alert.alert(res.errors[0].otp)
+                   // console.log("response>>",res.errors[0].otp)
+                }
+               else if(res.errors)
+                {
+                    
+                   // Alert.alert(res.errors[0].token)
+                    console.log("response>>",res.errors[0].token)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:'Password Not Correct',
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+
+                }
+                else if(res.errors[0].password)
+                {
+                    
+                    //Alert.alert(res.errors[0].password)
+                    console.log("response>>",res.errors[0].otp)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].password,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                }
+                else if(res.errors[0].account)
+                {
+                    
+                    //Alert.alert(res.errors[0].password)
+                    console.log("response>>",res.errors[0].account)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].account,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                }
+                else if(res.errors[0].pin)
+                {
+                    
+                    //Alert.alert(res.errors[0].password)
+                    console.log("response>>",res.errors[0].pin)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:res.errors[0].pin,
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                }
+                else
+                {
+                    
+                    //Alert.alert(res.errors[0].password)
+                    console.log("response>>",res.errors[0].pin)
+                    Toast.show({
+                        type:'tomatoToast',
+                             position:'top',
+                             text1:'Please Check Your Email and Password',
+                             visibilityTime:2000,
+                             autoHide:true
+                           
+                         })
+                }
+    
+    
+               })
         }
     }
         // if(response.message){
