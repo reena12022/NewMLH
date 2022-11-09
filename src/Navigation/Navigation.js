@@ -10,6 +10,8 @@ import SplashScreen from "../Screen/SplashScreen";
 import OnBoardingScreen from "../Screen/OnBoardingScreen";
 import SignUp from "../Screen/SignUp";
 import LoginPg from "../Screen/LoginPg";
+import EmailVerification1 from "../Screen/EmailVerification1";
+import EmailVerificationOTP from "../Screen/EmailVerificationOTP";
 const Stack = createNativeStackNavigator();
 class StackNavigation extends React.Component{
 
@@ -19,6 +21,8 @@ class StackNavigation extends React.Component{
                 <Stack.Navigator initialRouteName="SplashScreen" >
                 <Stack.Screen name="SignUp" component={SignUp} options={{headerShown:false}} />
                 <Stack.Screen name="LoginPg" component={LoginPg} options={{headerShown:false}} />
+                <Stack.Screen name="EmailVerification1" component={EmailVerification1} options={{headerShown:false}} />
+                <Stack.Screen name="EmailVerificationOTP" component={EmailVerificationOTP} options={{headerShown:false}} />
 
                 <Stack.Screen name="ForgotScreen1" component={ForgotScreen} options={{headerShown:false}} />
                 <Stack.Screen name="Forgotscreen2" component={Forgotscreen2} options={{headerShown:false}} />

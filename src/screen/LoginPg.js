@@ -252,10 +252,7 @@ export default class LoginPg extends React.Component {
                })
         }
     }
-        // if(response.message){
-        //         alert("response.error")
-        //     }
-        //    
+        
     
     render() {
         return (
@@ -264,7 +261,7 @@ export default class LoginPg extends React.Component {
                     <View >
                         <View style={styles.stlingView}>
                             <Text style={styles.texthaveAcc}>No account?<Text onPress={() => this.props.navigation.navigate("SignUp")} style={{ textDecorationLine: "underline", fontWeight: 'bold' }}> Sign Up</Text></Text>
-                            <Text style={{ fontSize: 20, fontWeight: "bold", paddingBottom: 8, paddingTop: 20 }}>Log in</Text>
+                            <Text  style={{ fontSize: 20, fontWeight: "bold", paddingBottom: 8, paddingTop: 20 }}>Log in</Text>
                             <Text style={{ paddingBottom: 10 }}>Welcome back to MLH, login to continue</Text>
                         </View>
 

@@ -106,7 +106,57 @@ export const Otpsend = async (token,otp) => {
        console.error(error);
     }
   };
-          
-      
+    
+  export const emailverificationOTP = async (otp,token) => {
+    const data={
+        "pin": otp
+    }
+    const header={
+      'Content-Type': 'application/json',
+      'token': token
+    }
+    console.log('data>>>',data)
+    try {
+      let response = await fetch(Base_URL+'/account_block/accounts/email_confirmations',{
+        method: 'POST',
+        headers: header,
+        body:JSON.stringify(data)
+        }
+      );
+      let json = await response.json();
+      console.log('json',json)
+      return json;
+    } catch (error) {
+       console.error(error);
+    }
+  };
+     
+     
+  export const ResendEmailOTP = async (email) => {
+    console.log('data>>>',data)
+    const data={
+      "data": {
+        "type": "email_account",
+          "attributes":
+          {
+              "email": email
+              // "password": "Mlh@123"
+          }
+        }
+    }
+    try {
+      let response = await fetch(Base_URL+'/account_block/accounts/email_otp',{
+        method: 'POST',
+        headers: header,
+        body:JSON.stringify(data)
+        }
+      );
+      let json = await response.json();
+      console.log('json',json)
+      return json;
+    } catch (error) {
+       console.error(error);
+    }
+  };
 
    
