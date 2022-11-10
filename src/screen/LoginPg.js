@@ -4,6 +4,10 @@ import Icons from 'react-native-vector-icons/Feather'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Toast from 'react-native-toast-message';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { withTranslation } from "react-i18next";
+import I18n from '../Language/I18n';
+
 Icon.loadFont().then();
 Icons.loadFont().then()
 
@@ -11,16 +15,16 @@ Icons.loadFont().then()
 const toastConfig = {
 
     tomatoToast: ({ text1, props }) => (
-        <View style={{ flexDirection: 'row', height: 80, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 ,padding:10 }}>
+        <View style={{ flexDirection: 'row', height: 80, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10, padding: 10 }}>
             <Icon name="error-outline"
                 color="white" size={30} />
-            <Text style={{  fontSize: 14, fontWeight: '400', color: 'white',flexWrap:'wrap',flex:1 ,paddingStart:5 }}>{text1}</Text>
+            <Text style={{ fontSize: 14, fontWeight: '400', color: 'white', flexWrap: 'wrap', flex: 1, paddingStart: 5 }}>{text1}</Text>
         </View>
     )
 
 }
 
-export default class LoginPg extends React.Component {
+class LoginPg extends React.Component {
 
     constructor(props) {
         super();
@@ -44,7 +48,7 @@ export default class LoginPg extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please Enter email',
+                text1: I18n.t('PLEASE_ENTER_EMAIL'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -60,11 +64,11 @@ export default class LoginPg extends React.Component {
             })
         }
         else if (reg.test(email)
- == false) {
+            == false) {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please enter correct email id',
+                text1: I18n.t('PLEASE_ENTER'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -83,7 +87,7 @@ export default class LoginPg extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please Enter password',
+                text1: I18n.t('PLEASE_ENTER_PASSWORD'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -98,11 +102,11 @@ export default class LoginPg extends React.Component {
                 }
             })
         }
-       else if (regpsw.test(password) == false) {
+        else if (regpsw.test(password) == false) {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Minimum eight characters, at least one uppercase letter, one lowercase letter and one number',
+                text1: I18n.t('MINIMUM_EIGHT'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -117,7 +121,7 @@ export default class LoginPg extends React.Component {
                 }
             })
         }
-        else{
+        else {
             this.props.navigation.navigate('ForgotScreen1',)
 
         }
@@ -125,73 +129,73 @@ export default class LoginPg extends React.Component {
     render() {
         return (
             <SafeAreaView>
-            <ScrollView style={{flexGrow:1}}>
-                <View >
-                    <View style={styles.stlingView}>
-                        <Text style={styles.texthaveAcc}>No account?<Text style={{ textDecorationLine: "underline",fontWeight:'bold'}}> Sign Up</Text></Text>
-                        <Text style={{ fontSize: 20, fontWeight: "bold", paddingBottom: 8,paddingTop:20 }}>Log in</Text>
-                        <Text style={{ paddingBottom: 10 }}>Welcome back to MLH, login to continue</Text>
-                    </View>
-                   
-                    <Text style={styles.textinput}>Email</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={this.state.email}
-                        onChangeText={(txt) => this.setState({ email: txt })} />
-                    <Text style={styles.textinput}>Password</Text>
-                    <View style={styles.passwordview}>
+                <ScrollView style={{ flexGrow: 1 }}>
+                    <View >
+                        <View style={styles.stlingView}>
+                            <Text style={styles.texthaveAcc}> {I18n.t('NO_ACCOUNT?')} <Text style={{ textDecorationLine: "underline", fontWeight: 'bold' }}> {I18n.t('SIGN_UP')}</Text></Text>
+                            <Text style={{ fontSize: 20, fontWeight: "bold", paddingBottom: 8, paddingTop: 20 }}>{I18n.t('LOGIN')}</Text>
+                            <Text style={{ paddingBottom: 10 }}>{I18n.t('WELCOME_BACK')}</Text>
+                        </View>
+
+                        <Text style={styles.textinput}>{I18n.t('EMAIL')}</Text>
                         <TextInput
-                            style={{ flex: 3 }}
-                            value={this.state.password}
-                            secureTextEntry={this.state.psw}
-                            onChangeText={(txt) => this.setState({ password: txt })} />
+                            style={styles.input}
+                            value={this.state.email}
+                            onChangeText={(txt) => this.setState({ email: txt })} />
+                        <Text style={styles.textinput}>{I18n.t('PASSWORD')}</Text>
+                        <View style={styles.passwordview}>
+                            <TextInput
+                                style={{ flex: 3 }}
+                                value={this.state.password}
+                                secureTextEntry={this.state.psw}
+                                onChangeText={(txt) => this.setState({ password: txt })} />
+                            <TouchableOpacity
+                                style={{ paddingRight: 10 }}
+                                onPress={() => this.setState({ psw: !this.state.psw })}>
+                                <Icons
+                                    size={20}
+                                    name={this.state.psw === false ? 'eye' : 'eye-off'} />
+                            </TouchableOpacity>
+                        </View>
+
+
+                        <View style={{ alignItems: "flex-end", paddingRight: 10, paddingBottom: 20 }}>
+                            <Text>{I18n.t('FORGOT?')}</Text>
+                        </View>
+
+
                         <TouchableOpacity
-                            style={{ paddingRight: 10 }}
-                            onPress={() => this.setState({ psw: !this.state.psw })}>
-                            <Icons
-                                size={20}
-                                name={this.state.psw === false ? 'eye' : 'eye-off'} />
+                            onPress={() => this.createLoginValidation()}
+                            style={styles.button}>
+                            <Text style={styles.Logintext}>{I18n.t('LOGIN')}</Text>
                         </TouchableOpacity>
                     </View>
 
-
-                    <View style={{ alignItems: "flex-end", paddingRight: 10,paddingBottom:20 }}>
-                        <Text>Forgot password?</Text>
-                    </View>
-
-                   
-                    <TouchableOpacity
-                    onPress={()=>this.createLoginValidation()}
-                        style={styles.button}>
-                        <Text style={styles.Logintext}>Login</Text>
-                    </TouchableOpacity>
-                </View>
-
-                {/* ----2nd part----
+                    {/* ----2nd part----
              ----login with---  */}
-                <View style={{marginTop:Platform.OS === "ios" ? 300 :250}}>
-                    <View style={{ justifyContent: 'flex-end', alignItems: "center",marginBottom:15}}>
-                        <Text>or login with</Text>
+                    <View style={{ marginTop: Platform.OS === "ios" ? 300 : 250 }}>
+                        <View style={{ justifyContent: 'flex-end', alignItems: "center", marginBottom: 15 }}>
+                            <Text>{I18n.t('OR_LOGIN_WITH')}</Text>
+                        </View>
+
+                        <View style={styles.imgView}>
+                            <Image style={styles.imgstyle}
+                                source={require('../Assets/icon_google.png')}
+                            ></Image>
+                            <Image style={styles.imgstyle}
+                                source={require('../Assets/icon_fb.png')}
+                            ></Image>
+                            <Image style={styles.imgstyle}
+                                source={require('../Assets/icon_indeed.png')}
+                            ></Image>
+                            <Image style={styles.imgstyle}
+                                source={require('../Assets/icon_tweet.png')}
+                            ></Image>
+                        </View>
                     </View>
-               
-                    <View style={styles.imgView}>
-                        <Image style={styles.imgstyle}
-                            source={require('../Assets/icon_google.png')}
-                        ></Image>
-                        <Image style={styles.imgstyle}
-                            source={require('../Assets/icon_fb.png')}
-                        ></Image>
-                        <Image style={styles.imgstyle}
-                            source={require('../Assets/icon_indeed.png')}
-                        ></Image>
-                        <Image style={styles.imgstyle}
-                            source={require('../Assets/icon_tweet.png')}
-                        ></Image>
-                    </View>
-                </View>
-                <Toast config={toastConfig} />
-       
-            </ScrollView>
+                    <Toast config={toastConfig} />
+
+                </ScrollView>
             </SafeAreaView>
         );
     }
@@ -199,8 +203,8 @@ export default class LoginPg extends React.Component {
 
 const styles = StyleSheet.create({
     stlingView: { paddingLeft: 10 },
-    texthaveAcc: { 
-        alignSelf:"flex-end",paddingRight:10
+    texthaveAcc: {
+        alignSelf: "flex-end", paddingRight: 10
     },
     input: {
         height: 43,
@@ -238,3 +242,5 @@ const styles = StyleSheet.create({
         height: 30, width: 30
     }
 })
+
+export default withTranslation()(LoginPg);

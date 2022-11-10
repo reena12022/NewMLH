@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import SplashScreen from '../Screen/SplashScreen';
 import OnBoardingScreen from '../Screen/OnBoardingScreen';
-
+import PrefferedLanguage from '../Screen/PrefferedLanguage'
 
 
 const Stack = createNativeStackNavigator();
@@ -15,7 +15,7 @@ class StackNavigation extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName='PrefferedLanguage'>
 
           <Stack.Screen name="SplashScreen" component={SplashScreen} options={{
             headerShown: false,
@@ -25,6 +25,11 @@ class StackNavigation extends React.Component {
             headerShown: false,
 
           }} />
+            <Stack.Screen name="PrefferedLanguage" component={PrefferedLanguage} options={{
+            headerShown: false,
+
+          }} />
+
 
 
 

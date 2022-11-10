@@ -10,21 +10,30 @@ import SplashScreen from "../Screen/SplashScreen";
 import OnBoardingScreen from "../Screen/OnBoardingScreen";
 import SignUp from "../Screen/SignUp";
 import LoginPg from "../Screen/LoginPg";
+import PrefferedLanguage from '../Screen/PrefferedLanguage'
+import SignUpCode from "../Screen/SignUpCode";
+
 const Stack = createNativeStackNavigator();
-class StackNavigation extends React.Component{
 
-    render(){
-        return(
-            <NavigationContainer>
-                <Stack.Navigator initialRouteName="SplashScreen" >
-                <Stack.Screen name="SignUp" component={SignUp} options={{headerShown:false}} />
-                <Stack.Screen name="LoginPg" component={LoginPg} options={{headerShown:false}} />
+class StackNavigation extends React.Component {
 
-                <Stack.Screen name="ForgotScreen1" component={ForgotScreen} options={{headerShown:false}} />
-                <Stack.Screen name="Forgotscreen2" component={Forgotscreen2} options={{headerShown:false}} />
-                <Stack.Screen name="Setpassword" component={Setpassword} options={{headerShown:false}} />
-                <Stack.Screen name="Updatepsw" component={Updatepsw} options={{headerShown:false}} />
-                <Stack.Screen name="SplashScreen" component={SplashScreen} options={{
+  render() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="PrefferedLanguage" >
+          <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+          <Stack.Screen name="LoginPg" component={LoginPg} options={{ headerShown: false }} />
+
+          <Stack.Screen name="ForgotScreen1" component={ForgotScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Forgotscreen2" component={Forgotscreen2} options={{ headerShown: false }} />
+          <Stack.Screen name="Setpassword" component={Setpassword} options={{ headerShown: false }} />
+          <Stack.Screen name="Updatepsw" component={Updatepsw} options={{ headerShown: false }} />
+          <Stack.Screen name="SplashScreen" component={SplashScreen} options={{
+            headerShown: false,
+
+          }} />
+
+          <Stack.Screen name="PrefferedLanguage" component={PrefferedLanguage} options={{
             headerShown: false,
 
           }} />
@@ -32,16 +41,20 @@ class StackNavigation extends React.Component{
             headerShown: false,
 
           }} />
+          <Stack.Screen name="SignUpCode" component={SignUpCode} options={{
+            headerShown: false,
+
+          }} />
 
 
-                
-             </Stack.Navigator>
+
+        </Stack.Navigator>
 
 
 
-            </NavigationContainer>
-        )
-    }
+      </NavigationContainer>
+    )
+  }
 }
 
 export default StackNavigation;

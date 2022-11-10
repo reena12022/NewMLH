@@ -3,21 +3,26 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image,
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icons from 'react-native-vector-icons/Feather'
 import Toast from 'react-native-toast-message';
+
+import { withTranslation } from "react-i18next";
+import I18n from '../Language/I18n';
+
 Icon.loadFont().then();
 Icons.loadFont().then()
 const toastConfig = {
 
     tomatoToast: ({ text1, props }) => (
-        <View style={{ flexDirection: 'row', height: 80, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 ,padding:10}}>
+        <View style={{ flexDirection: 'row', height: 80, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10, padding: 10 }}>
             <Icon name="error-outline"
                 color="white" size={30} />
-            <Text style={{ fontSize: 14, fontWeight: '400', color: 'white',flexWrap:'wrap',flex:1 ,paddingStart:5}}>{text1}</Text>
+            <Text style={{ fontSize: 14, fontWeight: '400', color: 'white', flexWrap: 'wrap', flex: 1, paddingStart: 5 }}>{text1}</Text>
 
         </View>
     )
 
 }
-export default class SignUp extends React.Component {
+
+class SignUp extends React.Component {
 
     constructor(props) {
         super();
@@ -44,7 +49,7 @@ export default class SignUp extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please Enter firstName',
+                text1: I18n.t('Please Enter firstName'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -63,7 +68,7 @@ export default class SignUp extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please Enter lastName',
+                text1: I18n.t('Please Enter lastName'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -82,7 +87,7 @@ export default class SignUp extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please Enter email',
+                text1: I18n.t('Please Enter email'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -98,11 +103,11 @@ export default class SignUp extends React.Component {
             })
         }
         else if (reg.test(email)
- == false) {
+            == false) {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please enter correct email id',
+                text1: I18n.t('Please enter correct email id'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -121,7 +126,7 @@ export default class SignUp extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please Enter password',
+                text1: I18n.t('Please Enter password'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -140,7 +145,7 @@ export default class SignUp extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Minimum eight characters, at least one uppercase letter, one lowercase letter and one number',
+                text1: I18n.t('MINIMUM_EIGHT'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -156,8 +161,8 @@ export default class SignUp extends React.Component {
                 }
             })
         }
-        else{
-            this.props.navigation.navigate('Login',)
+        else {
+            this.props.navigation.navigate('Login')
 
         }
     }
@@ -167,110 +172,111 @@ export default class SignUp extends React.Component {
 
         return (
             <SafeAreaView>
-            <ScrollView>
+                <ScrollView>
 
-                <View style={styles.stlingView}>
-                    <Text style={styles.texthaveAcc}>Have account?<Text style={{ textDecorationLine: "underline", fontWeight:'bold'}}> Log in</Text></Text>
-                    <Text style={{ fontSize: 20, fontWeight:'bold', paddingBottom: 8,paddingTop:20 }}>Sign up</Text>
-                    <Text style={{ paddingBottom: 10 }}>Create your MLH account to continue</Text>
-                </View>
-           
-                <View>
-                    <Text style={styles.textinput}>First Name</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={this.state.firstName}
-                        onChangeText={(txt) => this.setState({ firstName: txt })} />
-                    <Text style={styles.textinput}>Last Name</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={this.state.lastName}
-                        onChangeText={(txt) => this.setState({ lastName: txt })} />
-                    <Text style={styles.textinput}>Email</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={this.state.email}
-                        onChangeText={(txt) => this.setState({ email: txt })} />
-                    <Text style={styles.textinput}>Create Password</Text>
-                    <View style={styles.Createpsw}>
+                    <View style={styles.stlingView}>
+                        <Text style={styles.texthaveAcc}>{I18n.t('Have_account?')}<Text style={{ textDecorationLine: "underline", fontWeight: 'bold' }}>{I18n.t('LOGIN')}</Text></Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', paddingBottom: 8, paddingTop: 20 }}>{I18n.t('SIGN_UP')}</Text>
+                        <Text style={{ paddingBottom: 10 }}>{I18n.t('Create_your')}</Text>
+                    </View>
+
+                    <View>
+                        <Text style={styles.textinput}>{I18n.t('First_Name')}</Text>
                         <TextInput
-                            style={{ flex: 3 }}
-                            value={this.state.password}
-                            secureTextEntry={this.state.psw}
-                            onChangeText={(txt) => this.setState({ password: txt })} />
+                            style={styles.input}
+                            value={this.state.firstName}
+                            onChangeText={(txt) => this.setState({ firstName: txt })} />
+                        <Text style={styles.textinput}>{I18n.t('Last_Name')}</Text>
+                        <TextInput
+                            style={styles.input}
+                            value={this.state.lastName}
+                            onChangeText={(txt) => this.setState({ lastName: txt })} />
+                        <Text style={styles.textinput}>{I18n.t('EMAIL')}</Text>
+                        <TextInput
+                            style={styles.input}
+                            value={this.state.email}
+                            onChangeText={(txt) => this.setState({ email: txt })} />
+                        <Text style={styles.textinput}>{I18n.t('PASSWORD')}</Text>
+                        <View style={styles.Createpsw}>
+                            <TextInput
+                                style={{ flex: 3 }}
+                                value={this.state.password}
+                                secureTextEntry={this.state.psw}
+                                onChangeText={(txt) => this.setState({ password: txt })} />
+                            <TouchableOpacity
+                                style={{ paddingRight: 10 }}
+                                onPress={() => this.setState({ psw: !this.state.psw })}>
+                                <Icons
+                                    size={20}
+                                    name={this.state.psw === false ? 'eye' : 'eye-off'} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                    <View style={styles.checkBoxstyle}>
                         <TouchableOpacity
-                            style={{ paddingRight: 10 }}
-                            onPress={() => this.setState({ psw: !this.state.psw })}>
-                            <Icons
+                            onPress={() => this.setState({ selected: !this.state.selected })}
+                            style={[styles.checkBox]}>
+                            <Icon
                                 size={20}
-                                name={this.state.psw === false ? 'eye' : 'eye-off'} />
+                                name={this.state.selected ? 'check-box' : 'check-box-outline-blank'} />
+                        </TouchableOpacity>
+                        <Text>{I18n.t('I_have_read')}<Text style={{ fontWeight: 'bold' }}>{I18n.t('Terms_and_Conditions*')}</Text></Text>
+                    </View>
+                    <View style={styles.checkBoxstyle}>
+                        <TouchableOpacity
+                            onPress={() => this.setState({ isselected: !this.state.isselected })}
+                            style={[styles.checkBox]}>
+                            <Icon
+                                size={20}
+                                name={this.state.isselected ? 'check-box' : 'check-box-outline-blank'} />
+                        </TouchableOpacity>
+                        <Text>{I18n.t('I_agree_to')}</Text>
+                    </View>
+
+                    <View>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => this.createAccountValidation()}>
+                            <Text style={styles.signuptext}>{I18n.t('SIGN_UP')}</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
-           
-                <View style={styles.checkBoxstyle}>
-                    <TouchableOpacity
-                        onPress={() => this.setState({ selected: !this.state.selected })}
-                        style={[styles.checkBox]}>
-                        <Icon
-                            size={20}
-                            name={this.state.selected ? 'check-box' : 'check-box-outline-blank'} />
-                    </TouchableOpacity>
-                    <Text>I have read and agreed with the <Text style={{fontWeight:'bold'}}>Terms and Conditions*</Text></Text>
-                   </View>
-                   <View style={styles.checkBoxstyle}>
-                    <TouchableOpacity
-                        onPress={() => this.setState({ isselected: !this.state.isselected })}
-                        style={[styles.checkBox]}>
-                        <Icon
-                            size={20}
-                            name={this.state.isselected ? 'check-box' : 'check-box-outline-blank'} />
-                    </TouchableOpacity>
-                    <Text>I agree to receiving news and information from Medical Learning Hub</Text>
-                </View>
-             
-                <View>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => this.createAccountValidation()}>
-                        <Text style={styles.signuptext}>Sign up</Text>
-                    </TouchableOpacity>
-                </View>
-             
-                <View style={{ marginTop: Platform.OS === "ios" ? 20 : 10 }}>
-                    <View style={{ justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
-                        <Text>or sign up with</Text>
-                    </View>
 
-                    
-                    <View style={styles.imgView}>
-                        <Image style={styles.imgstyle}
-                            source={require('../Assets/icon_google.png')}
-                        ></Image>
-                        <Image style={styles.imgstyle}
-                            source={require('../Assets/icon_fb.png')}
-                        ></Image>
-                        <Image style={styles.imgstyle}
-                            source={require('../Assets/icon_indeed.png')}
-                        ></Image>
-                        <Image style={styles.imgstyle}
-                            source={require('../Assets/icon_tweet.png')}
-                        ></Image>
+                    <View style={{ marginTop: Platform.OS === "ios" ? 20 : 10 }}>
+                        <View style={{ justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
+                            <Text>{I18n.t('or_sign_up_with')}</Text>
+                        </View>
+
+
+                        <View style={styles.imgView}>
+                            <Image style={styles.imgstyle}
+                                source={require('../Assets/icon_google.png')}
+                            ></Image>
+                            <Image style={styles.imgstyle}
+                                source={require('../Assets/icon_fb.png')}
+                            ></Image>
+                            <Image style={styles.imgstyle}
+                                source={require('../Assets/icon_indeed.png')}
+                            ></Image>
+                            <Image style={styles.imgstyle}
+                                source={require('../Assets/icon_tweet.png')}
+                            ></Image>
+                        </View>
                     </View>
-                </View>
-                <Toast config={toastConfig} />
-            </ScrollView>
+                    <Toast config={toastConfig} />
+                </ScrollView>
             </SafeAreaView>
         )
     }
 }
 const styles = StyleSheet.create({
     stlingView: { paddingLeft: 10 },
-    checkBoxstyle:{
- paddingLeft: 10 ,flexDirection:"row"},
- texthaveAcc: { 
-    alignSelf:"flex-end",paddingRight:10
-},
+    checkBoxstyle: {
+        paddingLeft: 10, flexDirection: "row"
+    },
+    texthaveAcc: {
+        alignSelf: "flex-end", paddingRight: 10
+    },
     input: {
         height: 43,
         margin: 10,
@@ -307,3 +313,5 @@ const styles = StyleSheet.create({
         height: 30, width: 30
     }
 })
+
+export default withTranslation()(SignUp);
