@@ -32,7 +32,8 @@ import Accountactive from '../Assets/accountactive.png'
 import EmailVerification1 from '../Screen/EmailVerification1';
 import EmailVerificationOTP from '../Screen/EmailVerificationOTP';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
+import PrefferedLanguage from '../Screen/PrefferedLanguage';
+import SignUpCode from '../Screen/SignUpCode';
 const Tab = createMaterialTopTabNavigator();
 
 import * as Animatable from 'react-native-animatable';
@@ -224,7 +225,7 @@ class StackNavigation extends React.Component{
     render(){
         return(
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="Bootomroot" >
+                <Stack.Navigator initialRouteName="SplashScreen" >
                 <Stack.Screen name="SignUp" component={SignUp} options={{headerShown:false}} />
                 <Stack.Screen name="LoginPg" component={LoginPg} options={{headerShown:false}} />
                 <Stack.Screen name="Bootomroot" component={Tab5} options={{headerShown:false}} />
@@ -236,6 +237,15 @@ class StackNavigation extends React.Component{
                 <Stack.Screen name="Setpassword" component={Setpassword} options={{headerShown:false}} />
                 <Stack.Screen name="Updatepsw" component={Updatepsw} options={{headerShown:false}} />
                 <Stack.Screen name="SplashScreen" component={SplashScreen} options={{
+            headerShown: false,
+
+          }} />
+           <Stack.Screen name="SignUpCode" component={SignUpCode} options={{
+            headerShown: false,
+
+          }} />
+
+            <Stack.Screen name="PrefferedLanguage" component={PrefferedLanguage} options={{
             headerShown: false,
 
           }} />

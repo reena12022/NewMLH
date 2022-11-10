@@ -284,7 +284,7 @@ color="red" size={20}/>
 </Text>
 <TouchableOpacity  style={style.forgot_button2}
 
-   onPress={()=>this.props.navigation.navigate('Bootomroot')}
+   onPress={()=>this.props.navigation.navigate('LoginPg')}
    >
 
 <Text style={style.forgot_button4}> Login</Text>

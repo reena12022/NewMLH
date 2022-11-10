@@ -158,7 +158,7 @@ export default class LoginPg extends React.Component {
                        
                      })
 
-                    this.props.navigation.navigate('ForgotScreen1',)
+                    this.props.navigation.navigate('Bootomroot',)
 
                 }
                 else if(res.status == 500)

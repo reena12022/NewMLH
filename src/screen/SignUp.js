@@ -5,7 +5,8 @@ import Icons from 'react-native-vector-icons/Feather'
 import Toast,{BaseToast} from 'react-native-toast-message';
 import { signup } from '../Services/Service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { withTranslation } from "react-i18next";
+import I18n from '../Language/I18n';
 Icon.loadFont().then();
 Icons.loadFont().then()
 const toastConfig = {
@@ -32,7 +33,7 @@ const toastConfig = {
     )
 
 }
-export default class SignUp extends React.Component {
+ class SignUp extends React.Component {
 
     constructor(props) {
         super();
@@ -59,7 +60,7 @@ export default class SignUp extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please Enter firstName',
+                text1: I18n.t('Please Enter firstName'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -78,7 +79,7 @@ export default class SignUp extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please Enter lastName',
+                text1: I18n.t('Please Enter lastName'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -97,7 +98,7 @@ export default class SignUp extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please Enter email',
+                text1: I18n.t('Please Enter email'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -117,7 +118,7 @@ export default class SignUp extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please enter correct email id',
+                text1: I18n.t('Please enter correct email id'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -136,7 +137,7 @@ export default class SignUp extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please Enter password',
+                text1: I18n.t('Please Enter password'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -310,28 +311,31 @@ render() {
             <ScrollView>
 
                 <View style={styles.stlingView}>
-                    <Text style={styles.texthaveAcc}>Have account?<Text onPress={() => this.props.navigation.navigate("LoginPg")} style={{ textDecorationLine: "underline", fontWeight: 'bold' }}> Log in</Text></Text>
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', paddingBottom: 8, paddingTop: 20 }}>Sign up</Text>
-                    <Text style={{ paddingBottom: 10 }}>Create your MLH account to continue</Text>
+                    <TouchableOpacity onPress={()=>this.props.navigation.navigate('LoginPg')}>
+                    <Text style={styles.texthaveAcc}>{I18n.t('Have_account?')}<Text style={{ textDecorationLine: "underline", fontWeight: 'bold' }}>{I18n.t('LOGIN')}</Text></Text>
+                    </TouchableOpacity>
+               
+                <Text style={{ fontSize: 20, fontWeight: 'bold', paddingBottom: 8, paddingTop: 20 }}>{I18n.t('SIGN_UP')}</Text>
+                        <Text style={{ paddingBottom: 10 }}>{I18n.t('Create_your')}</Text>
                 </View>
 
                 <View>
-                    <Text style={styles.textinput}>First Name</Text>
+                <Text style={styles.textinput}>{I18n.t('First_Name')}</Text>
                     <TextInput
                         style={styles.input}
                         value={this.state.first_name}
                         onChangeText={(txt) => this.setState({ first_name: txt })} />
-                    <Text style={styles.textinput}>Last Name</Text>
+                        <Text style={styles.textinput}>{I18n.t('Last_Name')}</Text>
                     <TextInput
                         style={styles.input}
                         value={this.state.last_name}
                         onChangeText={(txt) => this.setState({ last_name: txt })} />
-                    <Text style={styles.textinput}>Email</Text>
+                        <Text style={styles.textinput}>{I18n.t('EMAIL')}</Text>
                     <TextInput
                         style={styles.input}
                         value={this.state.email}
                         onChangeText={(txt) => this.setState({ email: txt })} />
-                    <Text style={styles.textinput}>Create Password</Text>
+                    <Text style={styles.textinput}>{I18n.t('Create Password')}</Text>
                     <View style={styles.Createpsw}>
                         <TextInput
                             style={{ flex: 3 }}
@@ -356,7 +360,7 @@ render() {
                             size={20}
                             name={this.state.selected ? 'check-box' : 'check-box-outline-blank'} />
                     </TouchableOpacity>
-                    <Text>I have read and agreed with the <Text style={{ fontWeight: 'bold' }}>Terms and Conditions*</Text></Text>
+                    <Text>{I18n.t('I have read and agreed with the')} <Text style={{ fontWeight: 'bold' }}>Terms and Conditions*</Text></Text>
                 </View>
                 <View style={styles.checkBoxstyle}>
                     <TouchableOpacity
@@ -373,13 +377,13 @@ render() {
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => this.createAccountValidation()}>
-                        <Text style={styles.signuptext}>Sign up</Text>
+                        <Text style={styles.signuptext}>{I18n.t('SIGN_UP')}</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={{ marginTop: Platform.OS === "ios" ? 30 : 10 }}>
                     <View style={{ justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
-                        <Text>or sign up with</Text>
+                        <Text>{I18n.t('or sign up with')}</Text>
                     </View>
 
 
@@ -448,3 +452,4 @@ const styles = StyleSheet.create({
         height: 30, width: 30
     }
 })
+export default withTranslation()(SignUp);

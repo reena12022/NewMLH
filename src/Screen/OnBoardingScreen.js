@@ -5,6 +5,10 @@ import { SafeAreaView, ScrollView, TouchableOpacity, Text, View, Image, StyleShe
 
 import PaginationDot from 'react-native-animated-pagination-dot'
 import SignUp from "./SignUp";
+
+import {withTranslation} from "react-i18next";
+import I18n from '../Language/I18n';
+
 class OnBoardingScreen extends React.Component {
 
     constructor() {
@@ -18,31 +22,31 @@ class OnBoardingScreen extends React.Component {
             slides: [{
 
                 key: 1,
-                title: 'Continuous Medical Education:',
-                text: 'strengthen your practice online',
-                subText: 'Access medical courses online , find webinars of train on-site. Learn from global or local healthcare experts',
+                title: I18n.t('CONTINOUS_MEDICAL_EDUCATION:'),
+                text: I18n.t('STRENGTHEN_YOUR'),
+                subText: I18n.t('ACCESS_MEDICAL'),
                 image: require('../Assets/Splash.jpg'),
-                sk: "Skip",
+                sk: I18n.t('SKIP'),
                 pk: " ",
 
             },
             {
                 key: 2,
-                title: 'Continuous Medical Education:',
-                text: 'strengthen your practice online',
-                subText: 'Access medical courses online , find webinars of train on-site. Learn from global or local healthcare experts',
+                title: I18n.t('CONTINOUS_MEDICAL_EDUCATION:'),
+                text: I18n.t('STRENGTHEN_YOUR'),
+                subText: I18n.t('ACCESS_MEDICAL'),
                 image: require('../Assets/Group1.png'),
-                sk: "Skip",
-                pk: "Previous"
+                sk: I18n.t('SKIP'),
+                pk: I18n.t('PREVIOUS')
             },
             {
                 key: 3,
-                title: 'Continuous Medical Education:',
-                text: 'strengthen your practice online',
-                subText: 'Access medical courses online , find webinars of train on-site. Learn from global or local healthcare experts',
+                title: I18n.t('CONTINOUS_MEDICAL_EDUCATION:'),
+                text: I18n.t('STRENGTHEN_YOUR'),
+                subText: I18n.t('ACCESS_MEDICAL'),
                 image: require('../Assets/Group2.png'),
                 sk: null,
-                pk: "Previous"
+                pk: I18n.t('PREVIOUS')
 
             }],
         }
@@ -76,7 +80,7 @@ class OnBoardingScreen extends React.Component {
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.skip}>
-                        <Text style={{ fontSize: 20, }}> {item.sk}</Text>
+                        <Text style={{ fontSize: 20, }}> {item.sk} </Text>
                     </TouchableOpacity>
                 </View>
 
@@ -236,7 +240,7 @@ class OnBoardingScreen extends React.Component {
                         <View style={styles.btn1}>
                             <TouchableOpacity style={styles.touchbtn1} onPress={()=>this.props.navigation.navigate('SignUp')}>
 
-                                <Text style={styles.signUpText}>Sign Up</Text>
+                                <Text style={styles.signUpText}>{I18n.t('SIGN_UP')}</Text>
                             </TouchableOpacity>
 
                         </View>
@@ -246,7 +250,7 @@ class OnBoardingScreen extends React.Component {
 
 
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginPg')} style={styles.touchbtn2}>
-                                <Text style={styles.loginText}>Login</Text>
+                                <Text style={styles.loginText}>{I18n.t('LOGIN')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -353,4 +357,4 @@ const styles = StyleSheet.create({
     signUpText: { fontSize: 20, textAlign: 'center', fontWeight: 'bold', color: '#fff' },
     loginText: { fontWeight: 'bold', marginLeft: 5, fontSize: 18, textAlign: 'center' },
 })
-export default OnBoardingScreen;
+export default withTranslation()(OnBoardingScreen);
