@@ -1,40 +1,10 @@
 import React, {Component} from 'react';
 import { KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { TextInput,View,ScrollView,Image, StyleSheet,Alert, FlatList, Text } from 'react-native';
-import Buttoncom from './buttoncom';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-Icon.loadFont().then();
-import MyIcon from 'react-native-vector-icons/AntDesign';
-import {submitmail} from '../Services/Service';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
-const toastConfig ={
-    
-      /*
-        Overwrite 'error' type,
-        by modifying the existing `ErrorToast` component
-      */
-      
-      /*
-        Or create a completely new type - `tomatoToast`,
-        building the layout from scratch.
-    
-        I can consume any custom `props` I want.
-        They will be passed when calling the `show` method (see below)
-      */
-      tomatoToast: ({ text1, props }) => (
-        <View style={{ flexDirection: 'row', height: 80, width: '95%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 ,padding:10 }}>
-        <Icon name="error-outline"
-            color="white" size={30} />
-        <Text style={{  fontSize: 16, fontWeight: '400', color: 'white',flexWrap:'wrap',flex:1 ,paddingStart:5 }}>{text1}</Text>
-    </View>
-      )
 
-}
- 
 
-export default class ForgotScreen extends Component {
+export default class Document extends Component {
     
         state={
             name: "",
@@ -208,92 +178,14 @@ export default class ForgotScreen extends Component {
 
                <View style={style.container1}>
                
-               <Text style={style.mytext}>Forgot Password</Text>
-               <View style={style.container2}>
-                    <Text style={style.mytext1}>Enter registered email below to recrive</Text> 
-                    <Text style={style.mytext2}>password reset instruction</Text>
-
-                </View>
-               <Image source={require('../Assets/forgot1.png')} style={style.img}/>
-               </View>
+               <Text style={style.mytext}>Document</Text>
+               
              
 
                
                
 
-                <View style={style.container4}>
-<Text style={style.mytext3}>Email</Text>
-
-
-                            <View style={style.input1}>
-                                
-
-                                <TextInput     style={{fontSize:18,color:'black'}}
-                                    placeholder='Password'
-                                    placeholderTextColor="#d8bfd8"
-                                    value={this.state.email}
-                                    onChangeText={(text) => this.setState({ email: text })}
-                                    secureTextEntry={false}
-                                />
-                                  
-                                {
-                                    reg.test(this.state.email) == true ?
-                                        <TouchableOpacity style={{margin:10}} onPress={() => this.onClick()}>
-                                             <MyIcon name="checksquareo"
-color="gray" size={20}/>
-
-
-                                        </TouchableOpacity>
-                                        : null}
-                                          {
-                                    !this.state.errorshow ?
-                                        <TouchableOpacity style={{margin:10}} onPress={() => this.onClick()}>
-                                            <Icon name="error-outline"
-color="red" size={20}/> 
-
-
-                                        </TouchableOpacity>
-                                        : null}
-
-                            </View>
-                           
-
-                 
-
-
-                
-
-
-               
-
-                    <Buttoncom
-                        
-                        style={[style.mybutton, this.state.email==null && this.state.email!=null ? style.textinvalid : style.textvalid]}
-
-                    onClick={() => this.Senddata()}
-
-                        // image1={require('')}
-                        btnText={"Send"}
-                        TextStyle={style.textbutton}
-
-                    />
-           
-              
-                <View style={style.container3}>
-<Text style={style.forgot_button3}>Go back to  
-</Text>
-<TouchableOpacity  style={style.forgot_button2}
-
-   onPress={()=>this.props.navigation.navigate('Bootomroot')}
-   >
-
-<Text style={style.forgot_button4}> Login</Text>
-
-</TouchableOpacity>
-</View>
-             
-</View>      
-<Toast config={toastConfig} /> 
+               </View> 
             </ScrollView>
 
 

@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icons from 'react-native-vector-icons/Feather'
 import Toast,{BaseToast} from 'react-native-toast-message';
 import { signup } from '../Services/Service';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 Icon.loadFont().then();
 Icons.loadFont().then()
@@ -44,12 +45,12 @@ export default class SignUp extends React.Component {
             last_name: "",
             email: "",
             password: "",
-            errorshow: true
+            errorshow: true,
+            mytoken:''
         }
     }
 
-    createAccountValidation = () => {
-
+    createAccountValidation = async() => {
         const { email, password } = this.state
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         let regpsw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
@@ -171,6 +172,9 @@ export default class SignUp extends React.Component {
         // })
         // }
         else {
+
+            await AsyncStorage.setItem('resendEmailOTP', this.state.email)
+
             const data = {
                 "data":
                 {
@@ -187,11 +191,16 @@ export default class SignUp extends React.Component {
             console.log("display>>", data)
             signup(data)
 
-            .then(res=> {
+            .then(async res=> {
            
                 console.log("response>>",res)
                 if(res.data)
+
                 {
+                    this.setState({mytoken:res.meta.token})
+            console.log(this.state.mytoken)
+            
+        await AsyncStorage.setItem('OTPToken', this.state.mytoken)
                    // Alert.alert('OTP validation Success')
                    Toast.show({
                     type:'success',
@@ -200,7 +209,7 @@ export default class SignUp extends React.Component {
                          visibilityTime:3000,
                          autoHide:true,
                          onHide:() =>{
-                            this.props.navigation.navigate('LoginPg',)
+                            this.props.navigation.navigate('EmailVerificationOTP',)
 
                          }
                        
