@@ -4,7 +4,7 @@ import { TextInput,View,ScrollView,Image, StyleSheet,Alert, FlatList, Text } fro
 import Buttoncom from './buttoncom';
 import MyIcon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setpassword} from '../Services/Service'
+import {setpassword} from '../Services/service'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont().then();
 MyIcon.loadFont().then();

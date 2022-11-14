@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image,
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icons from 'react-native-vector-icons/Feather'
 import Toast,{BaseToast} from 'react-native-toast-message';
-import { signup } from '../Services/Service';
+import { signup } from '../Services/service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { withTranslation } from "react-i18next";
 import I18n from '../Language/I18n';

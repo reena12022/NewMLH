@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 Icon.loadFont().then();
 
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
-import { submitmail ,emailverificationOTP,ResendEmailOTP} from '../Services/Service';
+import { submitmail ,emailverificationOTP,ResendEmailOTP} from '../Services/service';
 const toastConfig = {
     success: (props) => (
         <BaseToast

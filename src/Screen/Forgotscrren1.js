@@ -5,7 +5,7 @@ import Buttoncom from './buttoncom';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont().then();
 import MyIcon from 'react-native-vector-icons/AntDesign';
-import {submitmail} from '../Services/Service';
+import {submitmail} from '../Services/service';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
