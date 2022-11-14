@@ -1,60 +1,61 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import { TextInput,View,ScrollView,Image, StyleSheet,Alert, FlatList, Text } from 'react-native';
+import { TextInput, View, ScrollView, Image, StyleSheet, Alert, FlatList, Text } from 'react-native';
 import Buttoncom from './buttoncom';
 import MyIcon from 'react-native-vector-icons/FontAwesome';
-
+import { withTranslation } from "react-i18next";
+import I18n from '../Language/I18n';
 import CountDown from 'react-native-countdown-component';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 MyIcon.loadFont().then();
 
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
-const toastConfig ={
+const toastConfig = {
     success: (props) => (
         <BaseToast
-          {...props}
-          style={{ borderLeftColor: 'pink' }}
-          contentContainerStyle={{ paddingHorizontal: 15 }}
-          text1Style={{
-            fontSize: 15,
-            fontWeight: '400'
-          }}
+            {...props}
+            style={{ borderLeftColor: 'pink' }}
+            contentContainerStyle={{ paddingHorizontal: 15 }}
+            text1Style={{
+                fontSize: 15,
+                fontWeight: '400'
+            }}
         />
-      ),
-      /*
-        Overwrite 'error' type,
-        by modifying the existing `ErrorToast` component
-      */
-      error: (props) => (
+    ),
+    /*
+      Overwrite 'error' type,
+      by modifying the existing `ErrorToast` component
+    */
+    error: (props) => (
         <ErrorToast
-          {...props}
-          text1Style={{
-            fontSize: 17
-          }}
-          text2Style={{
-            fontSize: 15
-          }}
+            {...props}
+            text1Style={{
+                fontSize: 17
+            }}
+            text2Style={{
+                fontSize: 15
+            }}
         />
-      ),
-      /*
-        Or create a completely new type - `tomatoToast`,
-        building the layout from scratch.
-    
-        I can consume any custom `props` I want.
-        They will be passed when calling the `show` method (see below)
-      */
-      tomatoToast: ({ text1, props }) => (
-        <View style={{ flexDirection:'row' , height: 60, width: '90%', backgroundColor: '#dc143c',alignItems:'center',justifyContent:'center',borderRadius:10}}>
-              <Icon name="error-outline"
-color="white" size={30}/> 
-          <Text style={{marginLeft:20,fontSize:16,fontWeight:'400',color:'white'}}>{text1}</Text>
-          
+    ),
+    /*
+      Or create a completely new type - `tomatoToast`,
+      building the layout from scratch.
+  
+      I can consume any custom `props` I want.
+      They will be passed when calling the `show` method (see below)
+    */
+    tomatoToast: ({ text1, props }) => (
+        <View style={{ flexDirection: 'row', height: 60, width: '90%', backgroundColor: '#dc143c', alignItems: 'center', justifyContent: 'center', borderRadius: 10 }}>
+            <Icon name="error-outline"
+                color="white" size={30} />
+            <Text style={{ marginLeft: 20, fontSize: 16, fontWeight: '400', color: 'white' }}>{text1}</Text>
+
         </View>
-      )
+    )
 
 }
-export default class Updatepsw extends Component {
-    
+class Updatepsw extends Component {
+
     state = {
         name: "",
         email: "",
@@ -72,86 +73,81 @@ export default class Updatepsw extends Component {
         value4: false,
         lineWidth: 10,
     }
-   
-    Senddata()
-    {
-        if(!this.state.email == '')
-        {
+
+    Senddata() {
+        if (!this.state.email == '') {
             Toast.show({
-           type:'tomatoToast',
-                position:'top',
-                text1:'Please Enter Email',
-                visibilityTime:2000,
-                autoHide:true
-              
+                type: 'tomatoToast',
+                position: 'top',
+                text1: I18n.t('Please Enter email'),
+                visibilityTime: 2000,
+                autoHide: true
+
             })
 
 
         }
-        else{
+        else {
             this.props.navigation.navigate('LoginPg',)
 
         }
     }
-  
+
     render() {
         return (
 
             <ScrollView
-      
-      style={style.container}
-    >
-               
 
-               <View style={style.container1}>
-               <Toast config={toastConfig} />
-               <Text style={style.mytext}>PASSWORD</Text>
-               <Text style={style.mytext4}>UPDATED</Text>
-             
+                style={style.container}>
 
-               <View  style={style.img}>
-               <Icon name="check"
-color="white" size={50}/>
 
-</View>
-               <View style={style.container2}>
-                    <Text style={style.mytext1}>Your Password has been succuesfully</Text> 
-                    <Text style={style.mytext2}>updated</Text>
+                <View style={style.container1}>
+                    <Toast config={toastConfig} />
+                    <Text style={style.mytext}>{I18n.t('PASSWORD')}</Text>
+                    <Text style={style.mytext4}>{I18n.t('UPDATED')}</Text>
 
+
+                    <View style={style.img}>
+                        <Icon name="check"
+                            color="white" size={50} />
+
+                    </View>
+                    <View style={style.container2}>
+                        <Text style={style.mytext1}>{I18n.t('Your Password has been succuesfully')}</Text>
+                        <Text style={style.mytext2}>{I18n.t('UPDATED')}</Text>
+
+                    </View>
                 </View>
-               </View>
-             
 
-               
-               
+
+
+
 
                 <View style={style.container4}>
-               
 
 
 
 
-                
 
 
-               
+
+
+
 
                     <Buttoncom
-                        
-                        style={[style.mybutton, this.state.email==null && this.state.email!=null ? style.textinvalid : style.textvalid]}
 
-                    onClick={() => this.Senddata()}
+                        style={[style.mybutton, this.state.email == null && this.state.email != null ? style.textinvalid : style.textvalid]}
+
+                        onClick={() => this.Senddata()}
 
                         // image1={require('')}
-                        btnText={"Login"}
-                        TextStyle={style.textbutton}
+                        btnText={I18n.t('LOGIN')}
+                        TextStyle={style.textbutton} />
 
-                    />
-           
-              
-              
-             
-</View>       
+
+
+
+                </View>
             </ScrollView>
 
 
@@ -168,49 +164,49 @@ const style = StyleSheet.create({
         width: '90%',
         borderWidth: 1,
         borderColor: '#d8bfd8',
-        borderRadius:10
+        borderRadius: 10
 
     },
-    mytext3:{
-        marginLeft:20,width: '90%',marginTop:20
+    mytext3: {
+        marginLeft: 20, width: '90%', marginTop: 20
     },
-    container4:{
-        flex:1,alignItems: 'center', width: "100%",justifyContent:'flex-end',marginTop:Platform.OS === "ios" ? 300 :250
+    container4: {
+        flex: 1, alignItems: 'center', width: "100%", justifyContent: 'flex-end', marginTop: Platform.OS === "ios" ? 300 : 250
     },
-    mytext:{
-        fontSize: 25,  color: '#663399',marginTop:40
+    mytext: {
+        fontSize: 25, color: '#663399', marginTop: 40
     },
-    mytext4:{
-        fontSize: 25,  color: '#663399',marginTop:5
+    mytext4: {
+        fontSize: 25, color: '#663399', marginTop: 5
     },
-    mytext1:{
+    mytext1: {
         fontSize: 16, fontWeight: '400', color: 'gray',
     },
-    mytext2:{
-        fontSize: 16, fontWeight: '400', color: 'gray',marginBottom:15
+    mytext2: {
+        fontSize: 16, fontWeight: '400', color: 'gray', marginBottom: 15
     },
-    img:{
-        height:100,width:100,alignItems:'center',borderRadius:50,backgroundColor:'#dc143c',justifyContent:'center',marginTop:30
+    img: {
+        height: 100, width: 100, alignItems: 'center', borderRadius: 50, backgroundColor: '#dc143c', justifyContent: 'center', marginTop: 30
     },
-    img2:{
-        height:50,width:50,  borderColor: "red",
+    img2: {
+        height: 50, width: 50, borderColor: "red",
         borderWidth: 5,
     },
     container1:
     {
-        flex:1,
-   
-        alignItems:'center',
-        justifyContent:'center',
-       
+        flex: 1,
+
+        alignItems: 'center',
+        justifyContent: 'center',
+
 
     },
-    container2:{
-        alignItems: 'center',  marginTop: 20,justifyContent:'center'
+    container2: {
+        alignItems: 'center', marginTop: 20, justifyContent: 'center'
     },
     container: {
         flexGrow: 1
-      },
+    },
     input1: {
         flexDirection: 'row',
         height: 60,
@@ -259,11 +255,11 @@ const style = StyleSheet.create({
 
     },
     container3: {
-       marginTop:Platform.OS === "ios" ? 140 :70,
+        marginTop: Platform.OS === "ios" ? 140 : 70,
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'center',
-       
+
 
     },
     forgot_button:
@@ -295,7 +291,7 @@ const style = StyleSheet.create({
     forgot_button4:
     {
         textDecorationLine: 'underline',
-        fontWeight:'bold',
+        fontWeight: 'bold',
 
         marginTop: 30,
         marginBottom: 40,
@@ -307,15 +303,16 @@ const style = StyleSheet.create({
         color: 'white'
     },
     input2: {
-      height: 35,
-      margin: 10,
-      color: 'gray',
-      padding: 10,
-      width: '13%',
-      borderWidth: 1,
-      borderColor: 'gray',
-      borderRadius:5
+        height: 35,
+        margin: 10,
+        color: 'gray',
+        padding: 10,
+        width: '13%',
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 5
 
 
-  },
+    },
 });
+export default withTranslation()(Updatepsw);

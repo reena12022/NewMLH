@@ -4,10 +4,11 @@ import Icons from 'react-native-vector-icons/Feather'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Toast, {BaseToast} from 'react-native-toast-message';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LoginServices } from '../Services/Service';
+import { LoginServices } from '../Services/service';
 Icon.loadFont().then();
 Icons.loadFont().then()
-
+import { withTranslation } from "react-i18next";
+import I18n from '../Language/I18n';
 
 const toastConfig = {
     success: (props) => (
@@ -32,7 +33,7 @@ const toastConfig = {
 
 }
 
-export default class LoginPg extends React.Component {
+ class LoginPg extends React.Component {
 
     constructor(props) {
         super();
@@ -56,7 +57,7 @@ export default class LoginPg extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please Enter email',
+                text1: I18n.t('PLEASE_ENTER_EMAIL'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -76,7 +77,7 @@ export default class LoginPg extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please enter correct email id',
+                text1: I18n.t('PLEASE_ENTER'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -95,7 +96,7 @@ export default class LoginPg extends React.Component {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: 'Please Enter password',
+                text1: I18n.t('PLEASE_ENTER_PASSWORD'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -152,7 +153,7 @@ export default class LoginPg extends React.Component {
                    Toast.show({
                     type:'success',
                          position:'top',
-                         text1:'Login succsfully',
+                         text1:I18n.t('Login succsfully'),
                          visibilityTime:2000,
                          autoHide:true
                        
@@ -184,7 +185,7 @@ export default class LoginPg extends React.Component {
                     Toast.show({
                         type:'tomatoToast',
                              position:'top',
-                             text1:'Password Not Correct',
+                             text1:I18n.t('Password Not Correct'),
                              visibilityTime:2000,
                              autoHide:true
                            
@@ -241,7 +242,7 @@ export default class LoginPg extends React.Component {
                     Toast.show({
                         type:'tomatoToast',
                              position:'top',
-                             text1:'Please Check Your Email and Password',
+                             text1:I18n.t('Please Check Your Email and Password'),
                              visibilityTime:2000,
                              autoHide:true
                            
@@ -263,17 +264,18 @@ export default class LoginPg extends React.Component {
                 <ScrollView style={{ flexGrow: 1 }}>
                     <View >
                         <View style={styles.stlingView}>
-                            <Text style={styles.texthaveAcc}>No account?<Text onPress={() => this.props.navigation.navigate("SignUp")} style={{ textDecorationLine: "underline", fontWeight: 'bold' }}> Sign Up</Text></Text>
+                            <Text style={styles.texthaveAcc}>{I18n.t('NO_ACCOUNT?')}<Text onPress={() => this.props.navigation.navigate("SignUp")} style={{ textDecorationLine: "underline", fontWeight: 'bold' }}> {I18n.t('SIGN_UP')}</Text></Text>
                             <Text style={{ fontSize: 20, fontWeight: "bold", paddingBottom: 8, paddingTop: 20 }}>Log in</Text>
-                            <Text style={{ paddingBottom: 10 }}>Welcome back to MLH, login to continue</Text>
+                            <Text style={{ paddingBottom: 10 }}>{I18n.t('WELCOME_BACK')}</Text>
                         </View>
 
-                        <Text style={styles.textinput}>Email</Text>
+                        <Text style={styles.textinput}>{I18n.t('EMAIL')}</Text>
                         <TextInput
                             style={styles.input}
                             value={this.state.email}
+                            autoCapitalize={false}
                             onChangeText={(txt) => this.setState({ email: txt })} />
-                        <Text style={styles.textinput}>Password</Text>
+                        <Text style={styles.textinput}>{I18n.t('PASSWORD')}</Text>
                         <View style={styles.passwordview}>
                             <TextInput
                                 style={{ flex: 3 }}
@@ -292,7 +294,7 @@ export default class LoginPg extends React.Component {
 
                         <View style={{ alignItems: "flex-end", paddingRight: 10, paddingBottom: 20 }}>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate("ForgotScreen1")}>
-                                <Text>Forgot password?</Text>
+                                <Text>{I18n.t('FORGOT?')}</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -300,7 +302,7 @@ export default class LoginPg extends React.Component {
                         <TouchableOpacity
                             onPress={() => this.createLoginValidation()}
                             style={styles.button}>
-                            <Text style={styles.Logintext}>Login</Text>
+                            <Text style={styles.Logintext}>{I18n.t('LOGIN')}</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -308,7 +310,7 @@ export default class LoginPg extends React.Component {
              ----login with---  */}
                     <View style={{ marginTop: Platform.OS === "ios" ? 300 : 220 }}>
                         <View style={{ justifyContent: 'flex-end', alignItems: "center", marginBottom: 15 }}>
-                            <Text>or login with</Text>
+                            <Text>{I18n.t('OR_LOGIN_WITH')}</Text>
                         </View>
 
                         <View style={styles.imgView}>
@@ -375,3 +377,5 @@ const styles = StyleSheet.create({
         height: 30, width: 30
     }
 })
+
+export default withTranslation()(LoginPg);

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image,
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icons from 'react-native-vector-icons/Feather'
 import Toast,{BaseToast} from 'react-native-toast-message';
-import { signup } from '../Services/Service';
+import { signup } from '../Services/service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { withTranslation } from "react-i18next";
 import I18n from '../Language/I18n';
@@ -79,7 +79,7 @@ const toastConfig = {
             Toast.show({
                 type: 'tomatoToast',
                 position: 'top',
-                text1: I18n.t('Please Enter lastName'),
+                text1:I18n.t('Please Enter lastName'),
                 visibilityTime: 3000,
                 autoHide: true,
                 onHide: () => {
@@ -206,7 +206,7 @@ const toastConfig = {
                    Toast.show({
                     type:'success',
                          position:'top',
-                         text1:'Account Created succsfully',
+                         text1:I18n.t('Account Created succsfully'),
                          visibilityTime:3000,
                          autoHide:true,
                          onHide:() =>{
@@ -335,7 +335,7 @@ render() {
                         style={styles.input}
                         value={this.state.email}
                         onChangeText={(txt) => this.setState({ email: txt })} />
-                    <Text style={styles.textinput}>{I18n.t('Create Password')}</Text>
+                    <Text style={styles.textinput}>{I18n.t('PASSWORD')}</Text>
                     <View style={styles.Createpsw}>
                         <TextInput
                             style={{ flex: 3 }}
@@ -360,7 +360,7 @@ render() {
                             size={20}
                             name={this.state.selected ? 'check-box' : 'check-box-outline-blank'} />
                     </TouchableOpacity>
-                    <Text>{I18n.t('I have read and agreed with the')} <Text style={{ fontWeight: 'bold' }}>Terms and Conditions*</Text></Text>
+                    <Text>{I18n.t('I_have_read')} <Text style={{ fontWeight: 'bold' }}>{I18n.t('Terms_and_Conditions*')}</Text></Text>
                 </View>
                 <View style={styles.checkBoxstyle}>
                     <TouchableOpacity
@@ -370,7 +370,7 @@ render() {
                             size={20}
                             name={this.state.isselected ? 'check-box' : 'check-box-outline-blank'} />
                     </TouchableOpacity>
-                    <Text>I agree to receiving news and information from Medical Learning Hub</Text>
+                    <Text>{I18n.t('I_agree_to')}</Text>
                 </View>
 
                 <View>
@@ -383,7 +383,7 @@ render() {
 
                 <View style={{ marginTop: Platform.OS === "ios" ? 30 : 10 }}>
                     <View style={{ justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
-                        <Text>{I18n.t('or sign up with')}</Text>
+                        <Text>{I18n.t('or_sign_up_with')}</Text>
                     </View>
 
 

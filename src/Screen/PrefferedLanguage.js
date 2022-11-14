@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, View, Text, TouchableOpacity, FlatList, StyleSheet, Image, ScrollView } from 'react-native'
+import { SafeAreaView, View, Text,StatusBar, TouchableOpacity, FlatList, StyleSheet, Image, ScrollView } from 'react-native'
 
 
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -107,6 +107,7 @@ class PrefferedLanguage extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
+                  <StatusBar barStyle={"dark-content"} backgroundColor="#fff"/>
 
                 <TouchableOpacity style={styles.header} onPress={() => this.props.navigation.navigate('SignUpCode')}>
                     <AntDesign name="left" size={25} />

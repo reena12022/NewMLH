@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import { KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { TextInput,View,ScrollView,Image, StyleSheet,Alert, FlatList, Text } from 'react-native';
 import Buttoncom from './buttoncom';
+import { withTranslation } from "react-i18next";
+import I18n from '../Language/I18n';
 import MyIcon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setpassword} from '../Services/Service'
+import {setpassword} from '../Services/service'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont().then();
 MyIcon.loadFont().then();
@@ -53,7 +55,7 @@ const toastConfig ={
       )
 
 }
-export default class Setpassword extends Component {
+class Setpassword extends Component {
     
     state = {
         name: "",
@@ -82,7 +84,7 @@ export default class Setpassword extends Component {
             Toast.show({
            type:'tomatoToast',
                 position:'top',
-                text1:'Please Enter Password',
+                text1:I18n.t('Please Enter password'),
                 visibilityTime:2000,
                 autoHide:true
               
@@ -95,7 +97,7 @@ export default class Setpassword extends Component {
             Toast.show({
            type:'tomatoToast',
                 position:'top',
-                text1:'Please enter atlaest 8 charcter',
+                text1:I18n.t('Please enter atlaest 8 charcter'),
                 visibilityTime:2000,
                 autoHide:true
               
@@ -108,7 +110,7 @@ export default class Setpassword extends Component {
             Toast.show({
            type:'tomatoToast',
                 position:'top',
-                text1:'Please Enter Confirm Password',
+                text1:I18n.t('Please Enter Confirm Password') ,
                 visibilityTime:2000,
                 autoHide:true,
             
@@ -123,7 +125,7 @@ export default class Setpassword extends Component {
             Toast.show({
            type:'tomatoToast',
                 position:'top',
-                text1:'Please Confirm Your Password it must match with your new password to change your old password',
+                text1:I18n.t('Please_Confirm'),
                 visibilityTime:2000,
                 autoHide:true,
             
@@ -142,7 +144,7 @@ export default class Setpassword extends Component {
                    Toast.show({
                     type:'success',
                          position:'top',
-                         text1:'Password Upadated Succesfully',
+                         text1:I18n.t('Password Upadated Succesfully'),
                          visibilityTime:5000,
                          autoHide:true,
                          onHide:() =>{
@@ -238,10 +240,10 @@ export default class Setpassword extends Component {
                
 
                <View style={style.container1}>
-               <Text style={style.mytext}>Create New Password</Text>
+               <Text style={style.mytext}>{I18n.t('Create New Password')}</Text>
                <View style={style.container2}>
-                    <Text style={style.mytext1}>Your New Password much be different from </Text> 
-                    <Text style={style.mytext2}>previously used password</Text>
+                    <Text style={style.mytext1}>{I18n.t('Your New Password')}</Text> 
+                    <Text style={style.mytext2}>{I18n.t('previously')}</Text>
 
                 </View>
                <Image source={require('../Assets/updateimg.png')} style={style.img}/>
@@ -252,7 +254,7 @@ export default class Setpassword extends Component {
                
 
                 <View style={style.container4}>
-<Text style={style.mytext3}>Password</Text>
+<Text style={style.mytext3}>{I18n.t('PASSWORD')}</Text>
 
 {
                         this.state.submitDisabled ?
@@ -261,7 +263,7 @@ export default class Setpassword extends Component {
                                 
 
                                 <TextInput     style={{fontSize:18,color:'black'}}
-                                    placeholder='Password'
+                                    placeholder={I18n.t('PASSWORD')}
                                     placeholderTextColor="#d8bfd8"
                                     value={this.state.password}
                                     onChangeText={(text) => this.setState({ password: text })}
@@ -287,7 +289,7 @@ color="gray" size={20}/>
                                 
 
                                 <TextInput     style={{fontSize:18,color:'black'}}
-                                    placeholder='Password'
+                                    placeholder={I18n.t('PASSWORD')}
                                     placeholderTextColor="#d8bfd8"
                                     value={this.state.password}
                                     onChangeText={(text) => this.setState({ password: text })}
@@ -306,10 +308,10 @@ color="gray" size={20}/>
 
                             </View>
                             : null}
-                    <Text style={style.mytext4}>Must be atleast 8 Charcters</Text>
+                    <Text style={style.mytext4}>{I18n.t('Must be atleast 8 Charcters')}</Text>
 
 
-                    <Text style={style.mytext3}>Confirm Password</Text>
+                    <Text style={style.mytext3}>{I18n.t('Confirm Password')}</Text>
 
                     {
                         this.state.paswhideshow ?
@@ -318,7 +320,7 @@ color="gray" size={20}/>
                                 
 
                                 <TextInput     style={{fontSize:18,color:'black'}}
-                                    placeholder='Password'
+                                    placeholder={I18n.t('PASSWORD')}
                                     placeholderTextColor="#d8bfd8"
                                     value={this.state.confmpsw}
                                     onChangeText={(text) => this.setState({ confmpsw: text })}
@@ -345,7 +347,7 @@ color="gray" size={20}/>
                                 
 
                                 <TextInput     style={{fontSize:18,color:'black'}}
-                                    placeholder='Password'
+                                    placeholder={I18n.t('PASSWORD')}
                                     placeholderTextColor="#d8bfd8"
                                     value={this.state.confmpsw}
                                     onChangeText={(text) => this.setState({ confmpsw: text })}
@@ -365,7 +367,7 @@ color="gray" size={20}/>
 
                             </View>
                             : null}
-<Text style={style.mytext4}>Both password must match</Text>
+<Text style={style.mytext4}>{I18n.t('Both password must match')}</Text>
 
 
 
@@ -382,7 +384,7 @@ color="gray" size={20}/>
                     onClick={() => this.Senddata()}
 
                         // image1={require('')}
-                        btnText={"Reset Password"}
+                        btnText={I18n.t('Reset Password')}
                         TextStyle={style.textbutton}
 
                     />
@@ -544,3 +546,4 @@ const style = StyleSheet.create({
         color: 'white'
     }
 });
+export default withTranslation()(Setpassword);

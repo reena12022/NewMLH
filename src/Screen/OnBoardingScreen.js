@@ -6,7 +6,7 @@ import { SafeAreaView, ScrollView, TouchableOpacity, Text, View, Image, StyleShe
 import PaginationDot from 'react-native-animated-pagination-dot'
 import SignUp from "./SignUp";
 
-import {withTranslation} from "react-i18next";
+import { withTranslation } from "react-i18next";
 import I18n from '../Language/I18n';
 
 class OnBoardingScreen extends React.Component {
@@ -25,7 +25,7 @@ class OnBoardingScreen extends React.Component {
                 title: I18n.t('CONTINOUS_MEDICAL_EDUCATION:'),
                 text: I18n.t('STRENGTHEN_YOUR'),
                 subText: I18n.t('ACCESS_MEDICAL'),
-                image: require('../Assets/Splash.jpg'),
+                image: require('../Assets/Onboarding1.png'),
                 sk: I18n.t('SKIP'),
                 pk: " ",
 
@@ -35,7 +35,7 @@ class OnBoardingScreen extends React.Component {
                 title: I18n.t('CONTINOUS_MEDICAL_EDUCATION:'),
                 text: I18n.t('STRENGTHEN_YOUR'),
                 subText: I18n.t('ACCESS_MEDICAL'),
-                image: require('../Assets/Group1.png'),
+                image: require('../Assets/Onboarding2.png'),
                 sk: I18n.t('SKIP'),
                 pk: I18n.t('PREVIOUS')
             },
@@ -44,7 +44,7 @@ class OnBoardingScreen extends React.Component {
                 title: I18n.t('CONTINOUS_MEDICAL_EDUCATION:'),
                 text: I18n.t('STRENGTHEN_YOUR'),
                 subText: I18n.t('ACCESS_MEDICAL'),
-                image: require('../Assets/Group2.png'),
+                image: require('../Assets/Onboarding3.png'),
                 sk: null,
                 pk: I18n.t('PREVIOUS')
 
@@ -238,7 +238,7 @@ class OnBoardingScreen extends React.Component {
 
                     <View style={{ marginTop: 10, }}>
                         <View style={styles.btn1}>
-                            <TouchableOpacity style={styles.touchbtn1} onPress={()=>this.props.navigation.navigate('SignUp')}>
+                            <TouchableOpacity style={styles.touchbtn1} onPress={() => this.props.navigation.navigate('SignUp')}>
 
                                 <Text style={styles.signUpText}>{I18n.t('SIGN_UP')}</Text>
                             </TouchableOpacity>
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
         //   backgroundColor: 'lightblue'
     },
     imageStyle: {
-        width: '90%',
+        width: '100%',
         height: '60%',
         borderRadius: 10,
         marginLeft: 10,
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
 
     },
     slide: {
-        width: 400,
+        width: 410,
         height: Platform.OS === 'android' ? 600 : 650,
 
         // backgroundColor: "red",

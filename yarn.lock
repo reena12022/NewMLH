@@ -4701,6 +4701,11 @@
     "prop-types" "^15.5.8"
     "sprintf-js" "^1.1.1"
 
+"react-native-dropdown-select-list@^2.0.2":
+  "integrity" "sha512-dxbhsO6DHxN5Ex5koVIAWO5E9R6ENNzbVjSoBVi8dcQkd1ubD31eCmdJXd4+VzEpXZ2em61kzILqyksRkLtS5w=="
+  "resolved" "https://registry.npmjs.org/react-native-dropdown-select-list/-/react-native-dropdown-select-list-2.0.2.tgz"
+  "version" "2.0.2"
+
 "react-native-gesture-handler@^2.8.0", "react-native-gesture-handler@>= 1.0.0":
   "version" "2.8.0"
   dependencies:
@@ -4758,6 +4763,18 @@
   dependencies:
     "react-freeze" "^1.0.0"
     "warn-once" "^0.1.0"
+
+"react-native-select-dropdown@^3.0.1":
+  "integrity" "sha512-JWkgGznlhfmA12MX+4WKe9kKQ2ejAiaes3hHdgeLExNkgP9/qybOtf7RAwnyY5Wkn5xkyOe82si/CSngNUUCFA=="
+  "resolved" "https://registry.npmjs.org/react-native-select-dropdown/-/react-native-select-dropdown-3.0.1.tgz"
+  "version" "3.0.1"
+
+"react-native-select-multiple@^2.1.0":
+  "integrity" "sha512-sJepp/RNeLorR+/bEUVuWnVEX5klpyf0MHWKy0SN1MIty4vcKhL9ZhPM6Zydm5p6qHeFcvA7Q87FzO1JTdaqkw=="
+  "resolved" "https://registry.npmjs.org/react-native-select-multiple/-/react-native-select-multiple-2.1.0.tgz"
+  "version" "2.1.0"
+  dependencies:
+    "prop-types" "^15.7.2"
 
 "react-native-snap-carousel@latest":
   "integrity" "sha512-xWEGusacIgK1YaDXLi7Gao2+ISLoGPVEBR8fcMf4tOOJQufutlNwkoLu0l6B8Qgsrre0nTxoVZikRgGRDWlLaQ=="

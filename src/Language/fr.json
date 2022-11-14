@@ -64,7 +64,16 @@
     "Must be atleast 8 Charcters":"Doit être au moins 8 caractères",
     "Confirm Password":"Confirmez le mot de passe",
     "Both password must match":"Les deux mots de passe doivent correspondre",
-    "Reset Password":"réinitialiser le mot de passe"
+    "Reset Password":"réinitialiser le mot de passe",
+    "Password Upadated Succesfully":"Mot de passe mis à jour avec succès",
+    "Account Created succsfully":"Compte créé avec succès",
+    "Login succsfully":"Connectez-vous avec succès",
+    "Password Not Correct":"Mot de passe incorrect",
+    "Please Check Your Email and Password":"Veuillez vérifier votre e-mail et votre mot de passe",
+    "You have entered incorrect":"Vous avez entré un identifiant de messagerie incorrect, veuillez entrer un identifiant de messagerie enregistré pour vous connecter à votre compte MLH",
+    "Please provide correct":"Veuillez fournir l'OTP correct pour réinitialiser le mot de passe si vous n'avez pas encore reçu l'OTP, puis cliquez sur renvoyer le code",
+    "Submit button":"Bouton de soumission",
+    "Email Verification":"vérification de l'E-mail"
 
    
 }

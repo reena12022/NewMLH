@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SafeAreaView, View, FlatList, TextInput, TouchableOpacity, Text, Image, StyleSheet, Platform } from 'react-native'
+import { SafeAreaView, View, FlatList, TextInput, TouchableOpacity, Text, Image,StatusBar, StyleSheet, Platform } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import {withTranslation} from "react-i18next";
 import I18n from '../Language/I18n';
@@ -11,8 +11,9 @@ import OnBoardingScreen from "./OnBoardingScreen";
     render() {
         return (
             <SafeAreaView style={styles.container}>
+                <StatusBar barStyle={"dark-content"} backgroundColor="#fff"/>
                 <View>
-                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }} onPress={()=>this.props.navigation.navigate('PrefferedLanguage')}>
+                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }} onPress={()=>this.props.navigation.navigate('PrefferedLanguage')}>
                         <AntDesign name="left" size={25} />
                         <Text style={{ fontWeight: '900', fontSize: 18 }}>{I18n.t('SIGN_UP_CODE')}</Text>
                         <Text style={{ fontSize: 15 }}>{I18n.t('SKIP')}</Text>
@@ -59,7 +60,8 @@ import OnBoardingScreen from "./OnBoardingScreen";
 
 const styles = StyleSheet.create({
 
-    container: { flex: 1, margin: 10 },
+    container: { flex: 1, 
+    backgroundColor:"#fff" },
 
     btn1: {
         alignItems: 'center',

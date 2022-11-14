@@ -64,7 +64,15 @@
     "Must be atleast 8 Charcters" :"Must be atleast 8 Charcters",
     "Confirm Password":"Confirm Password",
     "Both password must match":"Both password must match",
-    "Reset Password":"Reset Password"
-   
+    "Reset Password":"Reset Password",
+    "Password Upadated Succesfully":"Password Upadated Succesfully",
+    "Account Created succsfully":"Account Created succsfully",
+    "Login succsfully":"Login succsfully",
+    "Password Not Correct":"Password Not Correct",
+    "Please Check Your Email and Password":"Please Check Your Email and Password",
+    "You have entered incorrect":"You have entered incorrect email id please enter registerd email id to login to your MLH account",
+    "Please provide correct":"Please provide correct OTP to reset password if have not recive OTP yet then click on resend code",
+    "Submit button":"Submit button",
+    "Email Verification":"Email Verification"
 
 }

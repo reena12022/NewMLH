@@ -7,8 +7,12 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 Icon.loadFont().then();
 
+
+import { withTranslation } from "react-i18next";
+import I18n from '../Language/I18n';
+
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
-import {Otpsend,submitmail}from '../Services/Service';
+import {Otpsend,submitmail}from '../Services/service';
 const toastConfig ={
     success: (props) => (
         <BaseToast
@@ -52,7 +56,7 @@ const toastConfig ={
       )
 
 }
-export default class ForgotScreen2 extends Component {
+class Forgotscreen2 extends Component {
     
     state = {
         name: "",
@@ -105,7 +109,7 @@ export default class ForgotScreen2 extends Component {
               Toast.show({
                   type:'tomatoToast',
                        position:'top',
-                       text1:'Please provide correct OTP to reset password if have not recive OTP yet then click on resend code',
+                       text1:I18n.t(""),
                        visibilityTime:2000,
                        autoHide:true
                      
@@ -251,10 +255,10 @@ export default class ForgotScreen2 extends Component {
                
 
                <View style={style.container1}>
-               <Text style={style.mytext}>Verify OTP</Text>
+               <Text style={style.mytext}>{I18n.t('Verify OTP')}</Text>
                <View style={style.container2}>
-                    <Text style={style.mytext1}>Please enter verification code we sent to you</Text> 
-                    <Text style={style.mytext2}>your registerd email</Text>
+                    <Text style={style.mytext1}>{I18n.t('Please enter verification code we sent to you')}</Text> 
+                    <Text style={style.mytext2}>{I18n.t('your registerd email')}</Text>
 
                 </View>
                <Image source={require('../Assets/otp.png')} style={style.img}/>
@@ -314,7 +318,7 @@ keyboardType='number-pad'
 <View style={{  alignItems: 'center',justifyContent:'center',flexDirection:'row'}}>
            
           <TouchableOpacity>
-                    <Text style={{ fontSize: 16, fontWeight: '800', color: 'gray',paddingLeft:20}}>Code Expires in</Text>
+                    <Text style={{ fontSize: 16, fontWeight: '800', color: 'gray',paddingLeft:20}}>{I18n.t('Code Expires in')}</Text>
                     </TouchableOpacity>
                     <CountDown
                         id={this.state.id.toString()}
@@ -347,21 +351,21 @@ keyboardType='number-pad'
                     onClick={() => this.Senddata()}
 
                         // image1={require('')}
-                        btnText={"Verify"}
+                        btnText={I18n.t('Verify')}
                         TextStyle={style.textbutton}
 
                     />
            
               
                 <View style={style.container3}>
-<Text style={style.forgot_button3}>Didn't recive code?
+<Text style={style.forgot_button3}>{I18n.t('Didnt recive code?')}
 </Text>
 <TouchableOpacity  style={style.forgot_button2}
 
    onPress={()=>this.ReSenddata()}
    >
 
-<Text style={style.forgot_button4}> Resend Code</Text>
+<Text style={style.forgot_button4}> {I18n.t('Resend Code')}</Text>
 
 </TouchableOpacity>
 </View>
@@ -529,3 +533,4 @@ const style = StyleSheet.create({
 
   },
 });
+export default withTranslation()(Forgotscreen2);
