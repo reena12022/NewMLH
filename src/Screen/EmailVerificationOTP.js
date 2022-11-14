@@ -9,7 +9,7 @@ Icon.loadFont().then();
 import { withTranslation } from "react-i18next";
 import I18n from '../Language/I18n';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
-import { submitmail ,emailverificationOTP,ResendEmailOTP} from '../Services/service'
+import { submitmail ,emailverificationOTP,ResendEmailOTP} from '../Services/Service'
 const toastConfig = {
     success: (props) => (
         <BaseToast

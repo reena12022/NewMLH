@@ -6,7 +6,7 @@ import { withTranslation } from "react-i18next";
 import I18n from '../Language/I18n';
 import MyIcon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setpassword} from '../Services/service'
+import {setpassword} from '../Services/Service'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont().then();
 MyIcon.loadFont().then();

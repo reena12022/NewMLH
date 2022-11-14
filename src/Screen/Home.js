@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, Image, ScrollView, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { View, Text, Image, ScrollView, TextInput, TouchableOpacity, StyleSheet, FlatList ,SafeAreaView} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'
-import { SafeAreaView } from "react-native-safe-area-context";
+
 // import PaginationDot from 'react-native-animated-pagination-dot'
 import { SliderBox } from "react-native-image-slider-box";
 // const Imageslider =
@@ -141,7 +141,7 @@ export default class Dashboard extends React.Component {
         return (
             <SafeAreaView>
                 <ScrollView>
-                    <View style={{ padding: 10 }}>
+                    <View style={{ padding: 10 ,backgroundColor:"white"}}>
                         {/* {/ ----abby---  /} */}
                         <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
 
@@ -260,18 +260,21 @@ export default class Dashboard extends React.Component {
                             <Text style={{ fontWeight: 'bold', color: "black", fontSize: 15 }}>Partners</Text>
                         </View>
 
-                        <View>
-                            <View>
-                                <Image source={require('../Assets/Home_hero_banner.png')} style={{ height: 50, width: 50 }} />
+                        <View style={{backgroundColor: "pink", minHeight: 160, borderRadius:10,marginLeft:50}}>
+
+                            <View style={{ width: 70,height: 70,top: 75,left: 75,position:'absolute',justifyContent:"flex-start"}}>
+                                <Image source={require('../Assets/Home_hero_banner.png')} 
+                                style={{ height: 70, width: 70,justifyContent:"flex-start",borderRadius:10 }} />
                             </View>
 
-                            <View style={{ position: 'relative', right: 0, top: 0, borderRadius: 5, height: 10, width: 10, backgroundColor: '#00ff00' }}>
+                            <View style={{padding:10,paddingLeft:50,position:'relative'}}>
                                 <Text>Economic community of West Africa</Text>
                                 <Text>State ECOWAS</Text>
                                 <Text>The Treaty of the Economics</Text>
                                 <Text>Community of west African States</Text>
                                 <Text>(ECOWAS) is ....read more</Text>
                             </View>
+
                         </View>
 
 
@@ -371,4 +374,5 @@ const styles = StyleSheet.create({
         width: '10%',
         alignSelf: 'flex-start',
     },
+    
 })

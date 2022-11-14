@@ -4,7 +4,7 @@ import Icons from 'react-native-vector-icons/Feather'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Toast, {BaseToast} from 'react-native-toast-message';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LoginServices } from '../Services/service';
+import { LoginServices } from '../Services/Service';
 Icon.loadFont().then();
 Icons.loadFont().then()
 import { withTranslation } from "react-i18next";

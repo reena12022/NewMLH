@@ -5,7 +5,7 @@ import Buttoncom from './buttoncom';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont().then();
 import MyIcon from 'react-native-vector-icons/AntDesign';
-import { submitmail } from '../Services/service';
+import { submitmail } from '../Services/Service';
 import { withTranslation } from "react-i18next";
 import I18n from '../Language/I18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';

@@ -13,8 +13,8 @@ import OnBoardingScreen from "../Screen/OnBoardingScreen";
 import SignUp from "../Screen/SignUp";
 import LoginPg from "../Screen/LoginPg";
 import Home from '../Screen/Home';
-import Database from '../Screen/News';
-import Document from '../Screen/Book';
+// import Database from '../Screen/News';
+// import Document from '../Screen/Book';
 import Profile from '../Screen/Profile';
 import Category from '../Screen/Category';
 import React, { useEffect, useRef } from 'react'
@@ -35,6 +35,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import PrefferedLanguage from '../Screen/PrefferedLanguage';
 import SignUpCode from '../Screen/SignUpCode';
 import FeaturedCourses from '../Screen/FeaturedCourses';
+import Course from '../Screen/Course'
+import News from '../Screen/News'
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -46,8 +48,8 @@ const TabArr = [
   { name: 'Home', label: 'Home', type: Icons.MaterialCommunityIcons, activeIcon: home2, inActiveIcon: home, activeIcon1: 'minus', inActiveIcon2: 'minus', component: Home },
   { name: 'Category', label: 'Category', type: Icons.MaterialCommunityIcons, activeIcon: category, inActiveIcon: category2, activeIcon1: 'minus', inActiveIcon2: 'minus', component: Category },
 
-  { name: 'cource', label: 'cource', type: Icons.MaterialCommunityIcons, activeIcon: book1, inActiveIcon: book, activeIcon1: 'minus', inActiveIcon2: 'minus', component: Database },
-  { name: 'Document', label: 'News', type: Icons.MaterialCommunityIcons, activeIcon: news2, inActiveIcon: news, activeIcon1: 'minus', inActiveIcon2: 'minus', component: Document },
+  { name: 'Course', label: 'Course', type: Icons.MaterialCommunityIcons, activeIcon: book1, inActiveIcon: book, activeIcon1: 'minus', inActiveIcon2: 'minus', component: Course },
+  { name: 'Document', label: 'News', type: Icons.MaterialCommunityIcons, activeIcon: news2, inActiveIcon: news, activeIcon1: 'minus', inActiveIcon2: 'minus', component: News },
 
   { name: 'Profile', label: 'Account', type: Icons.MaterialCommunityIcons, activeIcon: Accountactive, inActiveIcon: Account, activeIcon1: 'minus', inActiveIcon2: 'minus', component: Profile },
 ];
